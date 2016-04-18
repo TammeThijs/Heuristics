@@ -16,68 +16,23 @@ Stephan 04/04 21.13
 
 import matplotlib.pyplot as plt
 import random
-
-class Eengezinswoning():
-    width = 8
-    heigth = 8
-    vrijstand = 1
-    '''
-    8x8 TODO
-    '''
-    def __init__(self):
-        self.heigth = 8
-        #todo
-    def get_width(self):
-        return self.width
-        
-    def get_heigth(self):
-        return self.heigth
-    def get_vrijstand(self):
-        return self.vrijstand
-    
-class Bungalow():
-    width = 8
-    heigth = 10
-    vrijstand = 1
-    '''
-    10x7.5 TODO
-    '''
-    def __init__(self):
-        self.width = 8
-        #todo
-    
-    def get_width(self):
-        return self.width
-    def get_heigth(self):
-        return self.heigth
-    def get_vrijstand(self):
-        return self.vrijstand
-        
-class Maison():
-    width = 11
-    heigth = 11
-    vrijstand = 1
-    '''
-    11x10.5 TODO
-    '''
-    def __init__(self):
-        self.width = 11
-        #todo
-    
-    def get_width(self):
-        return self.width
-    def get_heigth(self):
-        return self.heigth
-    def get_vrijstand(self):
-        return self.vrijstand
-
+import house_class as hc
                         
-
-def random_placing(matrix, width, height):
-    randy = random.randint(0, height)
-    randx = random.randint(0,width)
-        
-    matrix[randy][randx] = 10
+'''
+Place houses random on the matrix
+'''
+def random_placing(matrix, house, width, height):
+    # get random position
+    randy = random.randint(0, height-1)
+    randx = random.randint(0, width-1)
+    # check if house can be placed
+    if (house.checkplace(matrix, width, height, randx, randy)):
+        print("Couldnt not place house")
+        random_placing(matrix, house, width, height)
+    # place house
+    else:
+        matrix = house.placehouse(matrix, randx, randy)
+    
     return matrix
     
 def main():
@@ -87,21 +42,21 @@ def main():
     '''
     
     # height and width 150x160
-    width = 150
-    height = 160
+    width = 300
+    height = 320
     
     # make a matrix for if pixel is taken.
     # every pixel right now stands for 1 meter. So not very precise...
-    matrix = [[0 for i in range(width)] for j in range(height)]
+    matrix = [[0 for i in range(height)] for j in range(width)]
     
     # Show info
     #print(matrix)
     print("De eerste index is: " + str(len(matrix)))
     print("De tweede index is: " + str(len(matrix[0])))
         
-  
-    for i in range(100):
-        matrix = random_placing(matrix, width, height)
+    house = hc.Maison()
+    for i in range(60):
+        matrix = random_placing(matrix, house, width, height)
     
     # 20 huizen
     #matrix = simple_algoritme(width, height, 3, 5, 12)
