@@ -84,11 +84,15 @@ class Maison():
     With xpos and ypos the bottem left coordinates.
     '''
     def checkplace(self, matrix, width, heigth, xpos, ypos):
+        print("checking...")
         # check if fits on grid
         if (xpos + self.width*2 > width):
-            return False
+            return True
         elif (ypos + self.heigth*2 > heigth):
-            return False
+            return True
+    
+        print("passed")
+        return False
         # check if not already a house
             #TODO
         # check if not in mandiotry freeplace

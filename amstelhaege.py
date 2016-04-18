@@ -29,7 +29,6 @@ def random_placing(matrix, house, width, height):
     if (house.checkplace(matrix, width, height, randx, randy)):
         print("Couldnt not place house")
         random_placing(matrix, house, width, height)
-    # place house
     else:
         matrix = house.placehouse(matrix, randx, randy)
     
