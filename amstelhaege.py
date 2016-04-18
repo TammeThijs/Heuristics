@@ -15,6 +15,7 @@ Stephan 04/04 21.13
 """
 
 import matplotlib.pyplot as plt
+import random
 
 class Eengezinswoning():
     width = 8
@@ -72,7 +73,13 @@ class Maison():
 
                         
 
-
+def random_placing(matrix, width, height):
+    randy = random.randint(0, height)
+    randx = random.randint(0,width)
+        
+    matrix[randy][randx] = 10
+    return matrix
+    
 def main():
     '''
     Plot a figure of the grid    
@@ -93,11 +100,8 @@ def main():
     print("De tweede index is: " + str(len(matrix[0])))
         
   
-    # Place some houses
-    matrix[0][0] = 1
-    matrix[0][1] = 1   
-    matrix[1][1] = 1
-    matrix[1][0] = 1
+    for i in range(100):
+        matrix = random_placing(matrix, width, height)
     
     # 20 huizen
     #matrix = simple_algoritme(width, height, 3, 5, 12)
