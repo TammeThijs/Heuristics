@@ -17,20 +17,27 @@ Stephan 04/04 21.13
 import matplotlib.pyplot as plt
 import random
 import house_class as hc
-                        
+
+import sys
+sys.setrecursionlimit(10**6)
+
+global test_this                
 '''
 Place houses random on the matrix
 '''
-def random_placing(matrix, house, width, height):
+def random_placing(matrix, house, width, height, houseid):
+    global test_this
+    test_this += 1
+    print(test_this)
     # get random position
     randy = random.randint(0, height-1)
     randx = random.randint(0, width-1)
     # check if house can be placed
     if (house.checkplace(matrix, width, height, randx, randy)):
-        print("Couldnt not place house")
-        random_placing(matrix, house, width, height)
+        #print("Couldnt not place house")
+        random_placing(matrix, house, width, height, houseid)
     else:
-        matrix = house.placehouse(matrix, randx, randy)
+        matrix = house.placehouse(matrix, randx, randy, houseid)
     
     return matrix
     
@@ -39,6 +46,9 @@ def main():
     Plot a figure of the grid    
 
     '''
+    global test_this
+    
+    test_this = 0
     
     # height and width 150x160
     width = 300
@@ -53,9 +63,14 @@ def main():
     print("De eerste index is: " + str(len(matrix)))
     print("De tweede index is: " + str(len(matrix[0])))
         
-    house = hc.Maison()
+    houseid = 0
+    houselist = []
     for i in range(60):
-        matrix = random_placing(matrix, house, width, height)
+        
+        house = hc.Maison()
+        matrix = random_placing(matrix, house, width, height, houseid)
+        houselist.append(house)
+        houseid += 1
     
     # 20 huizen
     #matrix = simple_algoritme(width, height, 3, 5, 12)
@@ -69,6 +84,7 @@ def main():
     # Save on pc
     plt.savefig("test.png")
     
+    print(houselist)
     # Show image
     plt.show()
 
