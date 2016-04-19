@@ -5,7 +5,7 @@ Created on Tue Apr 19 13:04:16 2016
 @author: Stephan
 """
 
-import house_class as hc
+import houseclass
 import random
 
 '''
@@ -33,7 +33,7 @@ left coordinates
 def place_house(house, matrix, xpos, ypos):
     for x in range(house.getwidth()):
         for y in range(house.getheigth()):
-            matrix[x+xpos][y+ypos] += 1
+            matrix[x+xpos][y+ypos] += house.color()
     return matrix
     
 '''
@@ -77,6 +77,26 @@ def can_house_be_placed_here(house, matrix, width, heigth, xpos, ypos):
     # top left
     if(matrix[xpos][ypos + house.getheigth()] != 0):
         return False  
+    
+    '''
+    Check manditory free space.
+    '''
+    if(matrix[xpos - house.getvrijstand()][ypos - house.getvrijstand()] != 0):
+        return False
+    if(matrix[xpos + house.getvrijstand() + house.getwidth()][ypos - house.getvrijstand()] != 0):
+        return False
+    if(matrix[xpos + int(house.getwidth()/2)][ypos - house.getvrijstand()] != 0):
+        return False
+    if(matrix[xpos - house.getvrijstand()][ypos + house.getvrijstand() + house.getheigth()] != 0):
+        return False
+    if(matrix[xpos - house.getvrijstand()][ypos - int(house.getheigth()/2)] != 0):
+        return False
+    if(matrix[xpos + house.getvrijstand() + house.getwidth()][ypos + house.getvrijstand() + house.getheigth()] != 0):
+        return False
+    if(matrix[xpos + int(house.getwidth()/2)][ypos + house.getvrijstand() + house.getheigth()] != 0):
+        return False
+    if(matrix[xpos + house.getvrijstand() + house.getwidth()][ypos + int(house.getheigth()/2)] != 0):
+        return False
     
     # passed every test so far
     return True    

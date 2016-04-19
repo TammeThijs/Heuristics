@@ -15,7 +15,7 @@ Stephan 04/04 21.13
 """
 
 import matplotlib.pyplot as plt
-import house_class as hc
+import houseclass as hc
 import movement
 
 import sys
@@ -49,7 +49,7 @@ def main():
     houselist = []
     # 20 huizen, 
     for i in range(3):
-        house = hc.Eensgezinswoning()
+        house = hc.Maison()
         matrix = movement.random_placing(matrix, house, width, height, houseid)
         houselist.append(house)
         houseid += 1
@@ -59,7 +59,7 @@ def main():
         houselist.append(house)
         houseid += 1
     for i in range(12):
-        house = hc.Maison()
+        house = hc.Eengezinswoning()
         matrix = movement.random_placing(matrix, house, width, height, houseid)
         houselist.append(house)
         houseid += 1

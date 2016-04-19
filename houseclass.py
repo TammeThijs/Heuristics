@@ -27,8 +27,11 @@ class Eengezinswoning():
     posx = False
     posy = False
     houseid = False
+    housecolor = 1
         
-        #todo
+
+    def color(self):
+        return self.housecolor
     def getwidth(self):
         return self.width
     def getheigth(self):
@@ -52,13 +55,16 @@ class Bungalow():
     posx = False
     posy = False
     houseid = False
+    housecolor = 2
 
-        #todo   
-    def get_width(self):
+
+    def color(self):
+        return self.housecolor
+    def getwidth(self):
         return self.width
-    def get_heigth(self):
+    def getheigth(self):
         return self.heigth
-    def get_vrijstand(self):
+    def getvrijstand(self):
         return self.vrijstand
     def getcost(self):
         return self.cost
@@ -77,21 +83,19 @@ class Maison():
     posx = False
     posy = False
     houseid = False
+    housecolor = 3
 
-        #todo    
+    def color(self):
+        return self.housecolor
     def getwidth(self):
         return self.width
     def getheigth(self):
         return self.heigth
     def getvrijstand(self):
         return self.vrijstand
-<<<<<<< HEAD
     def getcost(self):
         return self.cost
     def getgain(self):
         return self.gain
     def getvalue(self):
         return self.value
-=======
-    
->>>>>>> 2a959151197cf702020eb652fa90bed9e246b4db
