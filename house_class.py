@@ -85,9 +85,13 @@ class Maison():
         return self.heigth
     def getvrijstand(self):
         return self.vrijstand
+<<<<<<< HEAD
     def getcost(self):
         return self.cost
     def getgain(self):
         return self.gain
     def getvalue(self):
         return self.value
+=======
+    
+>>>>>>> 2a959151197cf702020eb652fa90bed9e246b4db
