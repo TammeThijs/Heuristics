@@ -47,13 +47,24 @@ def main():
         
     houseid = 0
     houselist = []
-    for i in range(60):
-        
+    # 20 huizen, 
+    for i in range(3):
+        house = hc.Eensgezinswoning()
+        matrix = movement.random_placing(matrix, house, width, height, houseid)
+        houselist.append(house)
+        houseid += 1
+    for i in range(5):
+        house = hc.Bungalow()
+        matrix = movement.random_placing(matrix, house, width, height, houseid)
+        houselist.append(house)
+        houseid += 1
+    for i in range(12):
         house = hc.Maison()
         matrix = movement.random_placing(matrix, house, width, height, houseid)
         houselist.append(house)
         houseid += 1
     
+    print(len(houselist))
     # 20 huizen
     #matrix = simple_algoritme(width, height, 3, 5, 12)
     
