@@ -16,8 +16,8 @@ Stephan 04/04 21.13
 
 
 class Eengezinswoning():
-    width = 8
-    heigth = 8
+    width = 16
+    heigth = 16
     vrijstand = 1
     '''
     8x8 TODO
@@ -34,8 +34,8 @@ class Eengezinswoning():
         return self.vrijstand
     
 class Bungalow():
-    width = 8
-    heigth = 10
+    width = 16
+    heigth = 20
     vrijstand = 1
     '''
     10x7.5 TODO
@@ -52,8 +52,8 @@ class Bungalow():
         return self.vrijstand
         
 class Maison():
-    width = 11
-    heigth = 10.5
+    width = 22
+    heigth = 21
     vrijstand = 6
     cost = 610000
     posx = False
@@ -62,9 +62,6 @@ class Maison():
     '''
     11x10.5 TODO
     '''
-    def __init__(self):
-        self.width = 11
-        #todo
     
     def getwidth(self):
         return self.width
