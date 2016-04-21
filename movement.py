@@ -42,7 +42,10 @@ With xpos and ypos the bottem left coordinates.
 
 returns true if house can be placed
 '''
-def can_house_be_placed_here(house, matrix, width, heigth, xpos, ypos):
+def can_house_be_placed_here(house, matrix, xpos, ypos):
+
+    width = len(matrix)
+    heigth = len(matrix[0])
 
     '''
     Check for outside grid.

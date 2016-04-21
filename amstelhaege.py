@@ -17,20 +17,16 @@ Stephan 04/04 21.13
 import matplotlib.pyplot as plt
 import houseclass as hc
 import movement
+import matplotlib.animation as animation
 
 import sys
-sys.setrecursionlimit(10**6)
-
-global test_this                
+sys.setrecursionlimit(10**6)              
 
 def main():
     '''
     Plot a figure of the grid    
 
     '''
-    global test_this
-    
-    test_this = 0
     
     # height and width 150x160
     width = 300
@@ -47,26 +43,31 @@ def main():
         
     houseid = 0
     houselist = []
+    anim_list = [matrix]
     # 20 huizen, 
     for i in range(3):
         house = hc.Maison()
         matrix = movement.random_placing(matrix, house, width, height, houseid)
+        anim_list.append(matrix)
         houselist.append(house)
         houseid += 1
     for i in range(5):
         house = hc.Bungalow()
         matrix = movement.random_placing(matrix, house, width, height, houseid)
+        anim_list.append(matrix)
         houselist.append(house)
         houseid += 1
     for i in range(12):
         house = hc.Eengezinswoning()
         matrix = movement.random_placing(matrix, house, width, height, houseid)
+        anim_list.append(matrix)
         houselist.append(house)
         houseid += 1
     
     print(len(houselist))
     # 20 huizen
     #matrix = simple_algoritme(width, height, 3, 5, 12)
+    
     
     plt.matshow(matrix, 
                 origin = 'lower',   # Set 0,0 at bottom
@@ -75,12 +76,24 @@ def main():
     plt.colorbar()
     
     # Save on pc
-    plt.savefig("test.png")
+    #plt.savefig("test.png")
     
     print(houselist)
     # Show image
+    plt.show()    
+    
+    
+    '''
+    def update(i):
+        mat.set_data(anim_list[i])
+        return mat 
+    
+    fig, ax = plt.subplots()
+    mat = ax.matshow(anim_list[i])
+    plt.colorbar(mat)
+    ani = animation.FuncAnimation(fig, update, frames = 10, interval=5000)
     plt.show()
-
+    '''
 main()
             
             
