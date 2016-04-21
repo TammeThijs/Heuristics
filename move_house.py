@@ -6,23 +6,28 @@ Created on Thu Apr 21 12:12:14 2016
 """
 
 import movement
+import numpy as np
 
-def move_house(matrix, house):
-    temp_matrix = matrix
+def move_house(matrix, houselist):
+    
+    temp_matrix = np.copy(matrix)
+    house = houselist[0]
     
     # remove house
-    temp_matrix = remove_house(temp_matrix)
+    temp_matrix = remove_house(temp_matrix, house)
     
     # move house
     
     # get pos
     xpos = house.get_xpos()
     ypos = house.get_ypos()
-    new_xpos = xpos + 1
-    new_ypos = ypos + 1
+    new_xpos = xpos + 10
+    new_ypos = ypos + 10
     
-    if(movement.can_house_be_placed_here(house, temp_matrix, new_xpos, new_ypos) == False):
+    if(movement.placement_check(house, temp_matrix, new_xpos, new_ypos) == True):
         print("house is moved")
+        print(new_xpos)
+        print(new_ypos)
         temp_matrix = movement.place_house(house, temp_matrix, new_xpos, new_ypos)
         return temp_matrix
     else:
@@ -34,7 +39,7 @@ def remove_house(matrix, house):
     xpos = house.get_xpos()
     ypos = house.get_ypos()
     
-    for x in range(house.get_widht()):
+    for x in range(house.get_width()):
         for y in range(house.get_heigth()):
             matrix[xpos + x][ypos + y] = 0
     

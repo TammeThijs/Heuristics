@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 import houseclass as hc
 import movement
 import matplotlib.animation as animation
+import move_house
 
 import sys
 sys.setrecursionlimit(10**6)              
@@ -45,21 +46,21 @@ def main():
     houselist = []
     anim_list = [matrix]
     # 20 huizen, 
-    for i in range(9):
+    for i in range(1):
         house = hc.Maison()
-        matrix = movement.random_placing(matrix, house, width, height, houseid)
+        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
         anim_list.append(matrix)
         houselist.append(house)
         houseid += 1
-    for i in range(15):
+    for i in range(0):
         house = hc.Bungalow()
-        matrix = movement.random_placing(matrix, house, width, height, houseid)
+        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
         anim_list.append(matrix)
         houselist.append(house)
         houseid += 1
-    for i in range(36):
+    for i in range(20):
         house = hc.Eengezinswoning()
-        matrix = movement.random_placing(matrix, house, width, height, houseid)
+        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
         anim_list.append(matrix)
         houselist.append(house)
         houseid += 1
@@ -74,26 +75,31 @@ def main():
                 cmap=plt.cm.ocean)  # Set colors to ocean
     # Show color bar
     plt.colorbar()
+    plt.grid()
     
     # Save on pc
     #plt.savefig("test.png")
     
     print(houselist)
+    
+     
+    
+    
+    print("LETS MOVE SOME HOUSES*************************************************")
+    move_house.move_house(matrix, houselist)
+    move_house.move_house(matrix, houselist)
+    move_house.move_house(matrix, houselist)
+    
+    plt.matshow(matrix, 
+                origin = 'lower',   # Set 0,0 at bottom
+                cmap=plt.cm.ocean)  # Set colors to ocean
+    # Show color bar
+    plt.colorbar()
+    plt.grid()
     # Show image
-    plt.show()    
+    plt.show()       
     
     
-    '''
-    def update(i):
-        mat.set_data(anim_list[i])
-        return mat 
-    
-    fig, ax = plt.subplots()
-    mat = ax.matshow(anim_list[i])
-    plt.colorbar(mat)
-    ani = animation.FuncAnimation(fig, update, frames = 10, interval=5000)
-    plt.show()
-    '''
 main()
             
             
