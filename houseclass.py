@@ -63,7 +63,7 @@ class House():
 class Eengezinswoning(House):
     
     def __init__(self):
-        super.__init__()
+        super(self.__class__, self).__init__()
         # house dimensions in 0.5 meters  
         self.type = "eengezinswoning"   
         self.width = 16
@@ -77,7 +77,7 @@ class Eengezinswoning(House):
 class Bungalow(House):
     
     def __init__(self):
-        super.__init__()
+        super(self.__class__, self).__init__()
         self.type = "bungalow"
         self.sort = 2
         self.width = 16
@@ -94,7 +94,7 @@ class Bungalow(House):
 class Maison(House):
     
     def __init__(self):
-        super.__init__()
+        super(self.__class__, self).__init__()
         self.type = "maison"
         self.sort = 3
         self.width = 22
