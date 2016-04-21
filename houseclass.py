@@ -17,7 +17,8 @@ Stephan 04/04 21.13
 
 class Eengezinswoning():
     
-    # house dimensions in 0.5 meters
+    # house dimensions in 0.5 meters  
+    type = "eengezinswoning"   
     width = 16
     heigth = 16
     vrijstand = 4
@@ -28,24 +29,30 @@ class Eengezinswoning():
     posy = False
     houseid = False
     housecolor = 1
-        
-
-    def color(self):
+       
+    def get_type(self):
+        return self.type
+    def get_color(self):
         return self.housecolor
-    def getwidth(self):
+    def get_width(self):
         return self.width
-    def getheigth(self):
+    def get_heigth(self):
         return self.heigth
-    def getvrijstand(self):
+    def get_vrijstand(self):
         return self.vrijstand
-    def getcost(self):
+    def get_cost(self):
         return self.cost
-    def getgain(self):
+    def get_gain(self):
         return self.gain
-    def getvalue(self):
+    def get_value(self):
+        return self.value
+    def get_id(self):
         return self.value
     
 class Bungalow():
+    
+    type = "bungalow"
+    sort = 2
     width = 16
     heigth = 20
     vrijstand = 6
@@ -58,22 +65,29 @@ class Bungalow():
     housecolor = 2
 
 
-    def color(self):
+    def get_type(self):
+        return self.type
+    def get_color(self):
         return self.housecolor
-    def getwidth(self):
+    def get_width(self):
         return self.width
-    def getheigth(self):
+    def get_heigth(self):
         return self.heigth
-    def getvrijstand(self):
+    def get_vrijstand(self):
         return self.vrijstand
-    def getcost(self):
+    def get_cost(self):
         return self.cost
-    def getgain(self):
+    def get_gain(self):
         return self.gain
-    def getvalue(self):
+    def get_value(self):
+        return self.value
+    def get_id(self):
         return self.value
         
 class Maison():
+    
+    type = "maison"
+    sort = 3
     width = 22
     heigth = 21
     vrijstand = 12
@@ -84,18 +98,23 @@ class Maison():
     posy = False
     houseid = False
     housecolor = 3
-
-    def color(self):
+    
+    #getters
+    def get_type(self):
+        return self.type
+    def get_color(self):
         return self.housecolor
-    def getwidth(self):
+    def get_width(self):
         return self.width
-    def getheigth(self):
+    def get_heigth(self):
         return self.heigth
-    def getvrijstand(self):
+    def get_vrijstand(self):
         return self.vrijstand
-    def getcost(self):
+    def get_cost(self):
         return self.cost
-    def getgain(self):
+    def get_gain(self):
         return self.gain
-    def getvalue(self):
+    def get_value(self):
+        return self.value
+    def get_id(self):
         return self.value
