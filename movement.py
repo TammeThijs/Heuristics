@@ -21,7 +21,6 @@ def random_placing(matrix, house, width, height, houseid):
         random_placing(matrix, house, width, height, houseid)
     else:
         matrix, house = place_house(house, matrix, randx, randy)
-        print("PLACING WAS FOUND")
     
     return matrix, house
 
@@ -38,9 +37,9 @@ def place_house(house, matrix, xpos, ypos):
     for x in range((xpos - house.get_vrijstand()), (xpos + house.get_width() + house.get_vrijstand())):
         for y in range((ypos - house.get_vrijstand()), (ypos + house.get_heigth() + house.get_vrijstand())):
             if(x < xpos or x >= xpos + house.get_width() or y < ypos or y >= ypos + house.get_heigth()):
-                matrix[x][y] = 1
+                matrix[x][y] += 1
             else:
-                matrix[x][y] = house.get_color() + 1
+                matrix[x][y] = house.get_color()
     return matrix, house
    
    

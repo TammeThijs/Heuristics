@@ -17,7 +17,6 @@ Stephan 04/04 21.13
 import matplotlib.pyplot as plt
 import houseclass as hc
 import movement
-import matplotlib.animation as animation
 import move_house
 
 import sys
@@ -58,7 +57,7 @@ def main():
         anim_list.append(matrix)
         houselist.append(house)
         houseid += 1
-    for i in range(20):
+    for i in range(0):
         house = hc.Eengezinswoning()
         matrix, house = movement.random_placing(matrix, house, width, height, houseid)
         anim_list.append(matrix)
@@ -86,9 +85,9 @@ def main():
     
     
     print("LETS MOVE SOME HOUSES*************************************************")
-    move_house.move_house(matrix, houselist)
-    move_house.move_house(matrix, houselist)
-    move_house.move_house(matrix, houselist)
+    matrix = move_house.move_house(matrix, houselist)
+    matrix = move_house.move_house(matrix, houselist)
+    matrix = move_house.move_house(matrix, houselist)
     
     plt.matshow(matrix, 
                 origin = 'lower',   # Set 0,0 at bottom

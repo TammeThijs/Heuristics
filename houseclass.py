@@ -75,7 +75,7 @@ class Eengezinswoning(House):
         self.cost = 285000
         self.gain = 1.03 # profit margin/m free space
         self.value = 285000 # startwaarde
-        self.housecolor = 1
+        self.housecolor = 20
     
 class Bungalow(House):
     
@@ -92,7 +92,7 @@ class Bungalow(House):
         self.posx = False
         self.posy = False
         self.houseid = False
-        self.housecolor = 2
+        self.housecolor = 15
         
 class Maison(House):
     
@@ -106,5 +106,5 @@ class Maison(House):
         self.cost = 610000
         self.gain = 1.06 # profit margin/m free space
         self.value = 610000
-        self.housecolor = 3
+        self.housecolor = 10
        
