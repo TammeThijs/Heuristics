@@ -104,3 +104,16 @@ class Maison(House):
         self.gain = 1.06 # profit margin/m free space
         self.value = 610000
         self.housecolor = 3
+
+'''
+
+for x in range( (xpos - house.get_vrijstand()), (xpos + house.get_width() 
+    + house.get_vrijstand())):
+    for y in range( (ypos - house.get_vrijstand()), (ypos + house.get_heigth()
+        + house.get_vrijstand())):
+        if(x < xpos || x > xpos + house.get_vriget_width() || y < ypos || 
+            y > ypos + house.get_heigth()):
+            matrix[x][y] = 4
+        else:
+            matrix[x][x] = house.color()
+'''            
