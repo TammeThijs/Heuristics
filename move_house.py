@@ -16,8 +16,8 @@ def move_house(matrix, house):
     # move house
     
     # get pos
-    xpos = 0
-    ypos = 0
+    xpos = house.get_xpos()
+    ypos = house.get_ypos()
     new_xpos = xpos + 1
     new_ypos = ypos + 1
     
@@ -31,11 +31,11 @@ def move_house(matrix, house):
 
 def remove_house(matrix, house):
     # TODO GET POS OF HOUSE
-    xpos = 0
-    ypos = 0
+    xpos = house.get_xpos()
+    ypos = house.get_ypos()
     
-    for x in range(house.getwidht()):
-        for y in range(house.getheigth()):
+    for x in range(house.get_widht()):
+        for y in range(house.get_heigth()):
             matrix[xpos + x][ypos + y] = 0
     
     return matrix
