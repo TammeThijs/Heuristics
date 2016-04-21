@@ -78,26 +78,26 @@ def placement_check(house, matrix, xpos, ypos):
     if(matrix[xpos][ypos + house.get_heigth() + house.get_vrijstand()] != 0):
         return False 
         
-    if(house.get_type() == 2 or house.get_type() == 3):
+    if(house.get_house_type() == "maison" or house.get_house_type() == "bungalow"):
         
             # Check middle
-            if(matrix[xpos + (house.get_width() + house.get_vrijstand())/2][ypos + (house.get_heigth() + house.get_vrijstand())/2] != 0):
+            if(matrix[xpos + int((house.get_width() + house.get_vrijstand())/2)][ypos + int((house.get_heigth() + house.get_vrijstand())/2)] != 0):
                 return False 
             
             # middle bottom
-            if(matrix[xpos + (house.get_width() + house.get_vrijstand())/2][ypos] != 0):
+            if(matrix[xpos + int((house.get_width() + house.get_vrijstand())/2)][ypos] != 0):
                 return False    
                 
             #middle left
-            if(matrix[xpos][ypos + (house.get_heigth() + house.get_vrijstand())/2] != 0):
+            if(matrix[xpos][ypos + int((house.get_heigth() + house.get_vrijstand())/2)] != 0):
                 return False 
 
             #middle right
-            if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + (house.get_heigth() + house.get_vrijstand())/2] != 0):
+            if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + int((house.get_heigth() + house.get_vrijstand())/2)] != 0):
                 return False     
                 
             #top middle
-            if(matrix[xpos + (house.get_width() + house.get_vrijstand())/2][ypos + house.get_heigth() + house.get_vrijstand()] != 0):
+            if(matrix[xpos + int((house.get_width() + house.get_vrijstand())/2)][ypos + house.get_heigth() + house.get_vrijstand()] != 0):
                 return False
     
     # passed every test so far

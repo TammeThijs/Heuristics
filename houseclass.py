@@ -49,6 +49,11 @@ class House():
         if(self.posy == False):
             raise("posy is not set!")
         return self.posy
+    def get_house_type(self):
+        return self.house_type
+        
+        
+        
     def change_xpos(self, xpos):
         self.posx = xpos
     def change_ypos(self, ypos):
@@ -65,7 +70,7 @@ class Eengezinswoning(House):
     def __init__(self):
         super(self.__class__, self).__init__()
         # house dimensions in 0.5 meters  
-        self.type = "eengezinswoning"   
+        self.house_type = "eengezinswoning"   
         self.width = 16
         self.heigth = 16
         self.vrijstand = 4
@@ -78,7 +83,7 @@ class Bungalow(House):
     
     def __init__(self):
         super(self.__class__, self).__init__()
-        self.type = "bungalow"
+        self.house_type = "bungalow"
         self.sort = 2
         self.width = 16
         self.heigth = 20
@@ -95,7 +100,7 @@ class Maison(House):
     
     def __init__(self):
         super(self.__class__, self).__init__()
-        self.type = "maison"
+        self.house_type = "maison"
         self.sort = 3
         self.width = 22
         self.heigth = 21
