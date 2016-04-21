@@ -45,19 +45,19 @@ def main():
     houselist = []
     anim_list = [matrix]
     # 20 huizen, 
-    for i in range(3):
+    for i in range(9):
         house = hc.Maison()
         matrix = movement.random_placing(matrix, house, width, height, houseid)
         anim_list.append(matrix)
         houselist.append(house)
         houseid += 1
-    for i in range(5):
+    for i in range(15):
         house = hc.Bungalow()
         matrix = movement.random_placing(matrix, house, width, height, houseid)
         anim_list.append(matrix)
         houselist.append(house)
         houseid += 1
-    for i in range(12):
+    for i in range(36):
         house = hc.Eengezinswoning()
         matrix = movement.random_placing(matrix, house, width, height, houseid)
         anim_list.append(matrix)

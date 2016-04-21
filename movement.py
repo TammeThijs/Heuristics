@@ -17,11 +17,12 @@ def random_placing(matrix, house, width, height, houseid):
     randx = random.randint(0, width-1)
     
     # check if house can be placed
-    if(can_house_be_placed_here(house, matrix, width, height, randx, randy) 
+    if(placement_check(house, matrix, randx, randy) 
     == False):
         random_placing(matrix, house, width, height, houseid)
     else:
         matrix = place_house(house, matrix, randx, randy)
+        print("PLACING WAS FOUT")
     
     return matrix
 
@@ -31,9 +32,9 @@ Places a the house on matrix, width xpos and ypos the bottem
 left coordinates
 '''
 def place_house(house, matrix, xpos, ypos):
-    for x in range(house.getwidth()):
-        for y in range(house.getheigth()):
-            matrix[x+xpos][y+ypos] += house.color()
+    for x in range(house.get_width()):
+        for y in range(house.get_heigth()):
+            matrix[x+xpos][y+ypos] += house.get_color()
     return matrix
     
 '''
@@ -42,64 +43,62 @@ With xpos and ypos the bottem left coordinates.
 
 returns true if house can be placed
 '''
-def can_house_be_placed_here(house, matrix, xpos, ypos):
+def placement_check(house, matrix, xpos, ypos):
 
     width = len(matrix)
-    heigth = len(matrix[0])
-
-    '''
-    Check for outside grid.
-    '''
+    heigth = len(matrix[0])    
+    
+    #Checking if inside grid       
+    
     # right
-    if(xpos + house.getwidth() + house.getvrijstand() >= width):
+    if(xpos + house.get_width() + house.get_vrijstand() >= width):
         return False
     # top
-    if(ypos + house.getheigth() + house.getvrijstand() >= heigth):
+    if(ypos + house.get_heigth() + house.get_vrijstand() >= heigth):
         return False
     # left
-    if( xpos - house.getvrijstand() < 0):
+    if( xpos - house.get_vrijstand() < 0):
         return False
     # bottom
-    if( ypos - house.getvrijstand() < 0):
+    if( ypos - house.get_vrijstand() < 0):
         return False
     
-    '''
-    Check if a house is already placed.
-    
-    check by using: 4 spots
-    '''
+    #Validation done for all houses
+        
     # bottem left
-    if(matrix[xpos][ypos] != 0):
+    if(matrix[xpos-house.get_vrijstand()][ypos-house.get_vrijstand()] != 0):
         return False
     # top right
-    if(matrix[xpos + house.getwidth()][ypos + house.getheigth()] != 0):
+    if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + house.get_heigth() + house.get_vrijstand()] != 0):
         return False   
-    # bottem rigth
-    if(matrix[xpos + house.getwidth()][ypos] != 0):
+    # bottom right
+    if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos-house.get_vrijstand()] != 0):
         return False  
     # top left
-    if(matrix[xpos][ypos + house.getheigth()] != 0):
-        return False  
-    
-    '''
-    Check manditory free space.
-    '''
-    if(matrix[xpos - house.getvrijstand()][ypos - house.getvrijstand()] != 0):
-        return False
-    if(matrix[xpos + house.getvrijstand() + house.getwidth()][ypos - house.getvrijstand()] != 0):
-        return False
-    if(matrix[xpos + int(house.getwidth()/2)][ypos - house.getvrijstand()] != 0):
-        return False
-    if(matrix[xpos - house.getvrijstand()][ypos + house.getvrijstand() + house.getheigth()] != 0):
-        return False
-    if(matrix[xpos - house.getvrijstand()][ypos - int(house.getheigth()/2)] != 0):
-        return False
-    if(matrix[xpos + house.getvrijstand() + house.getwidth()][ypos + house.getvrijstand() + house.getheigth()] != 0):
-        return False
-    if(matrix[xpos + int(house.getwidth()/2)][ypos + house.getvrijstand() + house.getheigth()] != 0):
-        return False
-    if(matrix[xpos + house.getvrijstand() + house.getwidth()][ypos + int(house.getheigth()/2)] != 0):
-        return False
+    if(matrix[xpos][ypos + house.get_heigth() + house.get_vrijstand()] != 0):
+        return False 
+        
+    if(house.get_type() == 2 or house.get_type() == 3):
+        
+            # Check middle
+            if(matrix[xpos + (house.get_width() + house.get_vrijstand())/2][ypos + (house.get_heigth() + house.get_vrijstand())/2] != 0):
+                return False 
+            
+            # middle bottom
+            if(matrix[xpos + (house.get_width() + house.get_vrijstand())/2][ypos] != 0):
+                return False    
+                
+            #middle left
+            if(matrix[xpos][ypos + (house.get_heigth() + house.get_vrijstand())/2] != 0):
+                return False 
+
+            #middle right
+            if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + (house.get_heigth() + house.get_vrijstand())/2] != 0):
+                return False     
+                
+            #top middle
+            if(matrix[xpos + (house.get_width() + house.get_vrijstand())/2][ypos + house.get_heigth() + house.get_vrijstand()] != 0):
+                return False
     
     # passed every test so far
     return True    
