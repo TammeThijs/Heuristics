@@ -14,6 +14,8 @@ def random_placing(matrix, house, width, height, houseid):
     # get random position
     randy = random.randint(0, height-1)
     randx = random.randint(0, width-1)
+    if(house.get_id() == False):
+        house.change_id(houseid)
     
     # check if house can be placed
     if(placement_check(house, matrix, randx, randy) 

@@ -20,6 +20,7 @@ class House():
         self.posx = False
         self.posy = False
         self.houseid = False
+        self.extra_vrijstand = False
     
     def get_type(self):
         return self.type
@@ -38,8 +39,6 @@ class House():
     def get_value(self):
         return self.value
     def get_id(self):
-        if(self.houseid == False):
-            raise("house id is not set!")
         return self.houseid
     def get_xpos(self):
         if(self.posx == False):
@@ -51,11 +50,17 @@ class House():
         return self.posy
     def get_house_type(self):
         return self.house_type
+    def get_extra_vrijstand(self):
+        return self.extra_vrijstand
         
+    def change_extra_vrijstand(self, vrijstand):
+        self.extra_vrijstand = vrijstand
     def change_xpos(self, xpos):
         self.posx = xpos
     def change_ypos(self, ypos):
         self.posy = ypos
+    def change_id(self, new_id):
+        self.houseid =  new_id
 
 
 

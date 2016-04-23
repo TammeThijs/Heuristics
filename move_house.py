@@ -8,10 +8,14 @@ Created on Thu Apr 21 12:12:14 2016
 import movement
 import random
 
-def move_house(matrix, houselist):
+
+'''
+Moves a house to a new random position (within a range)
+'''
+def move_house(matrix, house):
     
-    house = houselist[0]    
-    
+    #house = houselist[0]    
+    # maak een copy ervan, zorg dat ie niet gwn pointer copied.
     temp_matrix = []
     for i in range(len(matrix)):
         temp_list = []
@@ -21,26 +25,28 @@ def move_house(matrix, houselist):
         temp_matrix.append(temp_list)
     
     
-    # remove house
+    # remove house, so we can move it
     temp_matrix = remove_house(temp_matrix, house)
     
-    # move house
-    
-    # get pos
+    # get pos new position
     xpos = house.get_xpos()
     ypos = house.get_ypos()
-    new_xpos = xpos + random.randint(5,10)
-    new_ypos = ypos + random.randint(5,10)
+    new_xpos = xpos + random.randint(-10,10)
+    new_ypos = ypos + random.randint(-10,10)
     
+    # check if you can move, if yes move, if no return old matrix
     if(movement.placement_check(house, temp_matrix, new_xpos, new_ypos) == True):
-        print("house is moved")
-        print(xpos, new_xpos, ypos, new_ypos)
+        #print("house is moved")
         temp_matrix = movement.place_house(house, temp_matrix, new_xpos, new_ypos)
         return temp_matrix[0]
     else:
-        print("house could not be moved")
+        #print("house could not be moved")
         return matrix
 
+'''
+Remove the house
+Decrease manditory free space by 1
+'''
 def remove_house(matrix, house):
     # TODO GET POS OF HOUSE
     xpos = house.get_xpos()
@@ -54,7 +60,6 @@ def remove_house(matrix, house):
                 matrix[x][y] -= 1
             else:
                 matrix[x][y] = 0       
-    print("house deleted")
     return matrix
     
     
