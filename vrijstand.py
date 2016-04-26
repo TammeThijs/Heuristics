@@ -16,18 +16,18 @@ def calculate_vrijstand(matrix, house_list):
     # check 7 meter
     for house in house_list:
         meters = find_vrijstand(matrix, house)
-        print("Halve meters: ", meters)
-        print("meters: ", int(meters/2))
+        #print("Halve meters: ", meters)
+        #print("meters: ", int(meters/2))
         house.change_extra_vrijstand(int(meters/2))
     return house_list
     
     
 def find_vrijstand(matrix, house, steps = 14, back = False, prev = 0, taken = None, free = 0):
-    print("calculate")
-    print("steps: ", steps)
-    print("taken: ", taken)
-    print("free: ", free)
-    print("goin back: ", back)
+    #print("calculate")
+    #print("steps: ", steps)
+    #print("taken: ", taken)
+    #print("free: ", free)
+    #print("goin back: ", back)
     if(back == False):
         if(check_layer(matrix, house, steps)):
             # free
@@ -39,8 +39,10 @@ def find_vrijstand(matrix, house, steps = 14, back = False, prev = 0, taken = No
             return find_vrijstand(matrix, house, steps = newsteps, back = True, taken = steps, free = free)
     else:
         if(taken - free < 2):
-            print("DONNNE**********************************************")
-            print("answer: ", steps)
+            #print("DONNNE**********************************************")
+            # TODO!!!!
+            #print("Doe iets met pythogras")
+            #print("answer: ", steps)
             return steps
         else:
             if(check_layer(matrix, house, steps)):
@@ -53,7 +55,7 @@ def find_vrijstand(matrix, house, steps = 14, back = False, prev = 0, taken = No
                 return find_vrijstand(matrix, house, steps = newsteps, back = True, taken = steps, free = free)
         
 def check_layer(matrix, house, layer):
-    print("hello")
+    #print("hello")
     xpos = house.get_xpos()
     ypos = house.get_ypos()
     width = house.get_width()
@@ -62,16 +64,16 @@ def check_layer(matrix, house, layer):
 
     # first check boundry because else you will get our of range error
     if(xpos - vrij < 0):
-        print("out of bound 1")
+        #print("out of bound 1")
         return False
     if(ypos - vrij < 0):
-        print("out of bound 2")
+        #print("out of bound 2")
         return False
     if(xpos + width + vrij >= len(matrix)):
-        print("out of bound 3")
+        #print("out of bound 3")
         return False
     if(ypos + heigth + vrij >= len(matrix[0])):
-        print("out of bound 4")
+        #print("out of bound 4")
         return False
 
 
@@ -81,28 +83,28 @@ def check_layer(matrix, house, layer):
     y = ypos - vrij
     for x in range(xpos - vrij , xpos + width + vrij, 7):
         if (matrix[x][y] > 9):
-            print("found house")
+            #print("found house")
             return False
     
     y = ypos + heigth + vrij
     for x in range(xpos - vrij, xpos + width + vrij, 7):
         if (matrix[x][y] > 9):
-            print("found house")
+            #print("found house")
             return False
         
     x = xpos - vrij
     for y in range(ypos - vrij, ypos + heigth + vrij, 7):
         if (matrix[x][y] > 9):
-            print("found house")
+            #print("found house")
             return False
         
     x = xpos + width + vrij
     for y in range(ypos - vrij, ypos + heigth + vrij, 7):
         if (matrix[x][y] > 9):
-            print("found house")
+            #print("found house")
             return False
         
-    print("###############no house")
+    #print("###############no house")
     return True
     
     

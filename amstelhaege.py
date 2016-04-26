@@ -71,17 +71,17 @@ def main():
     # 20 huizen
     #matrix = simple_algoritme(width, height, 3, 5, 12)
     
-    
+    '''
     plt.matshow(matrix, 
                 origin = 'lower',   # Set 0,0 at bottom
                 cmap=plt.cm.ocean)  # Set colors to ocean
     # Show color bar
     plt.colorbar()
     plt.grid()
-    
+    '''
     # Save on pc
     #plt.savefig("test.png")
-    
+    '''
     print(houselist)
     
     
@@ -106,11 +106,11 @@ def main():
     plt.grid()
     plt.show()
     plt.close()
-    
+    '''
     
     houselist = vrijstand.calculate_vrijstand(matrix, houselist)
     profit.append(calculate_profit.calculate(houselist))    
-    
+    '''
     print("LETS MOVE SOME HOUSES*************************************************")
     for j in range(20):
         houselist = vrijstand.calculate_vrijstand(matrix, houselist)
@@ -146,8 +146,15 @@ def main():
 
     houselist = vrijstand.calculate_vrijstand(matrix, houselist)
     profit.append(calculate_profit.calculate(houselist))
-    
+    '''
+    return calculate_profit.calculate(houselist)
 main()
+
+
+random = []
+for i in range(20000):
+    print("*****i*************################", i, i,i)
+    random.append(main())
             
             
-                    
+plt.hist(random, bins = 100)

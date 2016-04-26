@@ -13,7 +13,7 @@ def calculate(house_list):
         extra_vrijstand = house.get_extra_vrijstand()
         total = cost + float(cost)*gain*extra_vrijstand
         money += total
-        print("opbrengst van: ", house.get_id(), " is: ", total)
+        #print("opbrengst van: ", house.get_id(), " is: ", total)
         
     print("total: ", money)
     return money
