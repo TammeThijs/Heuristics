@@ -11,7 +11,7 @@ import movement
 import vrijstand
 import calculate_profit
 import sys
-sys.setrecursionlimit(10**6)              
+sys.setrecursionlimit(10**4)              
 
 def main():
     '''
@@ -26,29 +26,20 @@ def main():
     height = 320
     
     profit = []
-    
-    # make a matrix for if pixel is taken.
-    matrix = [[0 for i in range(height)] for j in range(width)]
         
-    houseid = 0
     houselist = []
-    # 20 huizen, 
-    for i in range(3):
-        house = hc.Maison()
-        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
-    for i in range(5):
-        house = hc.Bungalow()
-        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
-    for i in range(12):
-        house = hc.Eengezinswoning()
-        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
+    
+   # 20 huizen,  
+    placed = True
+    while(placed):
+        try:
+            matrix, houselist = houses_to_place(3, width, height)
+            placed = False
+        except:
+            print("ging nie hea")
+            placed = True
         
+    
     
     # calculate vrijstand
     houselist = vrijstand.calculate_vrijstand(matrix, houselist) 
@@ -56,9 +47,44 @@ def main():
     # return calculated profit
     return calculate_profit.calculate(houselist)
 
+'''
+place houses 
+1 for 20
+2 for 40
+3 for 60
+'''
+def houses_to_place(houses, width, height):
+    # make a matrix for if pixel is taken.
+    matrix = [[0 for i in range(height)] for j in range(width)]    
+    
+    houselist = []
+    global totalit
+    totalit = 0
+    
+    houseid = 0
+    for i in range(3*houses):
+        house = hc.Maison()
+        matrix, house, correct = movement.random_placing(matrix, house, width, height, houseid)
+        houselist.append(house)
+        totalit +=  correct
+        houseid += 1
+    for i in range(5*houses):
+        house = hc.Bungalow()
+        matrix, house, correct = movement.random_placing(matrix, house, width, height, houseid)
+        houselist.append(house)
+        totalit +=  correct
+        houseid += 1
+    for i in range(12*houses):
+        house = hc.Eengezinswoning()
+        matrix, house, correct = movement.random_placing(matrix, house, width, height, houseid)
+        houselist.append(house)
+        totalit +=  correct
+        houseid += 1
+    return matrix, houselist
+
 #  run main any number of times
 random = []
-for i in range(10000):
+for i in range(100):
     print("*****i*************################", i, i,i)
     random.append(main())
 plt.hist(random, bins = 100)

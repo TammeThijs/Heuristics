@@ -10,7 +10,12 @@ import random
 '''
 Place houses random on the matrix
 '''
-def random_placing(matrix, house, width, height, houseid):
+def random_placing(matrix, house, width, height, houseid, iteration = 0):
+    iteration += 1    
+    if (iteration > 1000):
+        #print("More then ", iteration, " iteration. Try again")
+        raise("error iteration")
+    
     # get random position
     randy = random.randint(0, height-1)
     randx = random.randint(0, width-1)
@@ -20,11 +25,11 @@ def random_placing(matrix, house, width, height, houseid):
     # check if house can be placed
     if(placement_check(house, matrix, randx, randy) 
     == False):
-        random_placing(matrix, house, width, height, houseid)
+        random_placing(matrix, house, width, height, houseid, iteration = iteration)
     else:
         matrix, house = place_house(house, matrix, randx, randy)
     
-    return matrix, house
+    return matrix, house, iteration
 
     
 '''
