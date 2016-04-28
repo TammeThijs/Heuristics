@@ -15,5 +15,5 @@ def calculate(house_list):
         money += total
         #print("opbrengst van: ", house.get_id(), " is: ", total)
         
-    print("total: ", money)
+    print("current total profit: ", money)
     return money

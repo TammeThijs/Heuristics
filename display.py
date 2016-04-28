@@ -28,5 +28,5 @@ def init_pygame():
     # initialize pygame display
     pygame.init()
     matrix = pygame.display.set_mode((1200, 800))
-    Pygame.display.set_caption("Amstelhaege")
+    pygame.display.set_caption("Amstelhaege")
     

@@ -11,11 +11,14 @@ import random
 
 '''
 Moves a house to a new random position (within a range)
+with a random range from -dx,dx and -dy,dy in meters
 '''
-def move_house(matrix, house):
+def move_house(matrix, house, dx, dy):
+    # transfer meters to rigth index namly0.5 meters per bukket
+    dx *= 2
+    dy *= 2    
     
-    #house = houselist[0]    
-    # maak een copy ervan, zorg dat ie niet gwn pointer copied.
+    # make copy of matrix for when move is incorrect
     temp_matrix = []
     for i in range(len(matrix)):
         temp_list = []
@@ -24,15 +27,14 @@ def move_house(matrix, house):
             
         temp_matrix.append(temp_list)
     
-    
     # remove house, so we can move it
     temp_matrix = remove_house(temp_matrix, house)
     
     # get pos new position
     xpos = house.get_xpos()
     ypos = house.get_ypos()
-    new_xpos = xpos + random.randint(-10,10)
-    new_ypos = ypos + random.randint(-10,10)
+    new_xpos = xpos + random.randint(-dx,dx)
+    new_ypos = ypos + random.randint(-dy,dy)
     
     # check if you can move, if yes move, if no return old matrix
     if(movement.placement_check(house, temp_matrix, new_xpos, new_ypos) == True):
