@@ -152,7 +152,7 @@ main()
 
 
 random = []
-for i in range(20000):
+for i in range(10000):
     print("*****i*************################", i, i,i)
     random.append(main())
             
