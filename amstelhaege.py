@@ -16,6 +16,8 @@ Stephan 04/04 21.13
 
 # import libary
 import matplotlib.pyplot as plt
+import pygame
+import display
 import houseclass as hc
 import movement
 import move_house
@@ -70,6 +72,26 @@ def main():
         houselist.append(house)
         houseid += 1
     
+
+    print(len(houselist))
+    # 20 huizen
+    #matrix = simple_algoritme(width, height, 3, 5, 12)
+    
+    display.init_pygame()
+    
+    '''
+    plt.matshow(matrix, 
+                origin = 'lower',   # Set 0,0 at bottom
+                cmap=plt.cm.ocean)  # Set colors to ocean
+    # Show color bar
+    plt.colorbar()
+    plt.grid()
+    '''
+    # Save on pc
+    #plt.savefig("test.png")
+    '''
+    print(houselist)
+
     
     # get all positions to plot
     coordinates = []
@@ -127,4 +149,20 @@ def main():
     plt.grid()
     plt.show()
     plt.close()
+
+
+    houselist = vrijstand.calculate_vrijstand(matrix, houselist)
+    profit.append(calculate_profit.calculate(houselist))
+    '''
+    return calculate_profit.calculate(houselist)
+main()
+
+
+random = []
+for i in range(1):
+    print("*****i*************################", i, i,i)
+    random.append(main())
+            
+            
+plt.hist(random, bins = 100)
 main()
