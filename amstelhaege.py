@@ -138,11 +138,10 @@ def main():
     '''
     
     
-    
-    display.build_grid(1)
+    display.build_grid(matrix)
 
     return calculate_profit.calculate(houselist)    
-main()
+#main()
 
 
 random = []
@@ -151,5 +150,5 @@ for i in range(1):
     random.append(main())
             
             
-plt.hist(random, bins = 100)
-main()
+#plt.hist(random, bins = 100)
+#main()
