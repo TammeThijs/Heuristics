@@ -77,7 +77,7 @@ def main():
     # 20 huizen
     #matrix = simple_algoritme(width, height, 3, 5, 12)
     
-    display.init_pygame()
+
     
     '''
     plt.matshow(matrix, 
@@ -154,7 +154,12 @@ def main():
     houselist = vrijstand.calculate_vrijstand(matrix, houselist)
     profit.append(calculate_profit.calculate(houselist))
     '''
-    return calculate_profit.calculate(houselist)
+    
+    
+    
+    display.build_grid(1)
+
+    return calculate_profit.calculate(houselist)    
 main()
 
 
