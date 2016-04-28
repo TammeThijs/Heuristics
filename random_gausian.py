@@ -6,7 +6,6 @@ Created on Thu Apr 28 11:55:52 2016
 """
 
 import matplotlib.pyplot as plt
-import houseclass as hc
 import movement
 import vrijstand
 import calculate_profit
@@ -26,29 +25,19 @@ def main():
     height = 320
     
     profit = []
-    
-    # make a matrix for if pixel is taken.
-    matrix = [[0 for i in range(height)] for j in range(width)]
         
-    houseid = 0
     houselist = []
-    # 20 huizen, 
-    for i in range(3):
-        house = hc.Maison()
-        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
-    for i in range(5):
-        house = hc.Bungalow()
-        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
-    for i in range(12):
-        house = hc.Eengezinswoning()
-        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
+    
+   # 20 huizen,  
+    placed = True
+    while(placed):
+        try:
+            matrix, houselist = movement.houses_to_place(3, width, height)
+            placed = False
+        except:
+            print('error happend')
         
+    
     
     # calculate vrijstand
     houselist = vrijstand.calculate_vrijstand(matrix, houselist) 
@@ -56,9 +45,17 @@ def main():
     # return calculated profit
     return calculate_profit.calculate(houselist)
 
+'''
+place houses 
+1 for 20
+2 for 40
+3 for 60
+'''
+
+
 #  run main any number of times
 random = []
-for i in range(10000):
+for i in range(100):
     print("*****i*************################", i, i,i)
     random.append(main())
 plt.hist(random, bins = 100)

@@ -6,11 +6,47 @@ Created on Tue Apr 19 13:04:16 2016
 """
 
 import random
+import houseclass as hc
+
+
+
+'''
+Call functions to place houses
+'''
+def houses_to_place(houses, width, height):
+    # make a matrix for if pixel is taken.
+    matrix = [[0 for i in range(height)] for j in range(width)]    
+    
+    houselist = []
+    
+    houseid = 0
+    for i in range(3*houses):
+        house = hc.Maison()
+        matrix, house = random_placing(matrix, house, width, height, houseid)
+        houselist.append(house)
+        houseid += 1
+    for i in range(5*houses):
+        house = hc.Bungalow()
+        matrix, house = random_placing(matrix, house, width, height, houseid)
+        houselist.append(house)
+        houseid += 1
+    for i in range(12*houses):
+        house = hc.Eengezinswoning()
+        matrix, house = random_placing(matrix, house, width, height, houseid)
+        houselist.append(house)
+        houseid += 1
+    return matrix, houselist
 
 '''
 Place houses random on the matrix
 '''
-def random_placing(matrix, house, width, height, houseid):
+def random_placing(matrix, house, width, height, houseid, iteration = 0):
+    
+    iteration += 1    
+    if (iteration > 1000):
+        #print("More then ", iteration, " iteration. Try again")
+        raise("error iteration")
+    
     # get random position
     randy = random.randint(0, height-1)
     randx = random.randint(0, width-1)
@@ -20,7 +56,7 @@ def random_placing(matrix, house, width, height, houseid):
     # check if house can be placed
     if(placement_check(house, matrix, randx, randy) 
     == False):
-        random_placing(matrix, house, width, height, houseid)
+        random_placing(matrix, house, width, height, houseid, iteration = iteration)
     else:
         matrix, house = place_house(house, matrix, randx, randy)
     
