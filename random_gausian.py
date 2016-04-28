@@ -6,12 +6,11 @@ Created on Thu Apr 28 11:55:52 2016
 """
 
 import matplotlib.pyplot as plt
-import houseclass as hc
 import movement
 import vrijstand
 import calculate_profit
 import sys
-sys.setrecursionlimit(10**4)              
+sys.setrecursionlimit(10**6)              
 
 def main():
     '''
@@ -33,11 +32,10 @@ def main():
     placed = True
     while(placed):
         try:
-            matrix, houselist = houses_to_place(3, width, height)
+            matrix, houselist = movement.houses_to_place(3, width, height)
             placed = False
         except:
-            print("ging nie hea")
-            placed = True
+            print('error happend')
         
     
     
@@ -53,29 +51,7 @@ place houses
 2 for 40
 3 for 60
 '''
-def houses_to_place(houses, width, height):
-    # make a matrix for if pixel is taken.
-    matrix = [[0 for i in range(height)] for j in range(width)]    
-    
-    houselist = []
-    
-    houseid = 0
-    for i in range(3*houses):
-        house = hc.Maison()
-        matrix, house, correct = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
-    for i in range(5*houses):
-        house = hc.Bungalow()
-        matrix, house, correct = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
-    for i in range(12*houses):
-        house = hc.Eengezinswoning()
-        matrix, house, correct = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
-    return matrix, houselist
+
 
 #  run main any number of times
 random = []
