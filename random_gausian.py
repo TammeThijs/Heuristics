@@ -12,7 +12,7 @@ import calculate_profit
 import sys
 sys.setrecursionlimit(10**6)              
 
-def main():
+def main(run):
     '''
     Plot a figure of the grid    
 
@@ -32,7 +32,7 @@ def main():
     placed = True
     while(placed):
         try:
-            matrix, houselist = movement.houses_to_place(3, width, height)
+            matrix, houselist = movement.houses_to_place(run, width, height)
             placed = False
         except:
             print('error happend')
@@ -52,10 +52,31 @@ place houses
 3 for 60
 '''
 
-
 #  run main any number of times
 random = []
-for i in range(100):
-    print("*****i*************################", i, i,i)
-    random.append(main())
+for i in range(1000):
+    if (i % 10 == 0):
+        print("*****i*************################", i, i,i)
+    random.append(main(1))
+
+#  run main any number of times
+random2 = []
+for i in range(1000):
+    if (i % 10 == 0):
+        print("*****i*************################", i, i,i)
+    random2.append(main(2))
+    
+
+
+#  run main any number of times
+random3 = []
+for i in range(1000):
+    if (i % 10 == 0):
+        print("*****i*************################", i, i,i)
+    random3.append(main(3))
+
+plt.figure()
 plt.hist(random, bins = 100)
+plt.hist(random2, bins = 100)    
+plt.hist(random3, bins = 100)
+plt.show()

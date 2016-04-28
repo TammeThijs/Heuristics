@@ -110,39 +110,39 @@ def placement_check(house, matrix, xpos, ypos):
     #Validation done for all houses
         
     # bottem left
-    if(matrix[xpos-house.get_vrijstand()][ypos-house.get_vrijstand()] != 0):
+    if(matrix[xpos-house.get_vrijstand()][ypos-house.get_vrijstand()] < 9):
         return False
     # top right
-    if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + house.get_heigth() + house.get_vrijstand()] != 0):
+    if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + house.get_heigth() + house.get_vrijstand()] < 9):
         return False   
     # bottom right
-    if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos-house.get_vrijstand()] != 0):
+    if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos-house.get_vrijstand()] < 9):
         return False  
     # top left
-    if(matrix[xpos][ypos + house.get_heigth() + house.get_vrijstand()] != 0):
+    if(matrix[xpos][ypos + house.get_heigth() + house.get_vrijstand()] < 9):
         return False 
     
     
     
     if(house.get_house_type() == "maison" or house.get_house_type() == "bungalow"):
         # Check middle
-        if(matrix[xpos + int((house.get_width() + house.get_vrijstand())/2)][ypos + int((house.get_heigth() + house.get_vrijstand())/2)] != 0):
+        if(matrix[xpos + int((house.get_width() + house.get_vrijstand())/2)][ypos + int((house.get_heigth() + house.get_vrijstand())/2)] < 9):
             return False 
         
         # middle bottom
-        if(matrix[xpos + int((house.get_width() + house.get_vrijstand())/2)][ypos] != 0):
+        if(matrix[xpos + int((house.get_width() + house.get_vrijstand())/2)][ypos] < 9):
             return False    
             
         #middle left
-        if(matrix[xpos][ypos + int((house.get_heigth() + house.get_vrijstand())/2)] != 0):
+        if(matrix[xpos][ypos + int((house.get_heigth() + house.get_vrijstand())/2)] < 9):
             return False 
 
         #middle right
-        if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + int((house.get_heigth() + house.get_vrijstand())/2)] != 0):
+        if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + int((house.get_heigth() + house.get_vrijstand())/2)] < 9):
             return False     
             
         #top middle
-        if(matrix[xpos + int((house.get_width() + house.get_vrijstand())/2)][ypos + house.get_heigth() + house.get_vrijstand()] != 0):
+        if(matrix[xpos + int((house.get_width() + house.get_vrijstand())/2)][ypos + house.get_heigth() + house.get_vrijstand()] < 9):
             return False
         
     
