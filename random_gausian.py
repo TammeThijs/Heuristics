@@ -58,27 +58,22 @@ def houses_to_place(houses, width, height):
     matrix = [[0 for i in range(height)] for j in range(width)]    
     
     houselist = []
-    global totalit
-    totalit = 0
     
     houseid = 0
     for i in range(3*houses):
         house = hc.Maison()
         matrix, house, correct = movement.random_placing(matrix, house, width, height, houseid)
         houselist.append(house)
-        totalit +=  correct
         houseid += 1
     for i in range(5*houses):
         house = hc.Bungalow()
         matrix, house, correct = movement.random_placing(matrix, house, width, height, houseid)
         houselist.append(house)
-        totalit +=  correct
         houseid += 1
     for i in range(12*houses):
         house = hc.Eengezinswoning()
         matrix, house, correct = movement.random_placing(matrix, house, width, height, houseid)
         houselist.append(house)
-        totalit +=  correct
         houseid += 1
     return matrix, houselist
 

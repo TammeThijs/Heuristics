@@ -29,7 +29,7 @@ def random_placing(matrix, house, width, height, houseid, iteration = 0):
     else:
         matrix, house = place_house(house, matrix, randx, randy)
     
-    return matrix, house, iteration
+    return matrix, house
 
     
 '''
