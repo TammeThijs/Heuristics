@@ -15,6 +15,8 @@ Stephan 04/04 21.13
 """
 
 import matplotlib.pyplot as plt
+import pygame
+import display
 import houseclass as hc
 import movement
 import move_house
@@ -70,6 +72,8 @@ def main():
     print(len(houselist))
     # 20 huizen
     #matrix = simple_algoritme(width, height, 3, 5, 12)
+    
+    display.init_pygame()
     
     '''
     plt.matshow(matrix, 
@@ -152,7 +156,7 @@ main()
 
 
 random = []
-for i in range(10000):
+for i in range(1):
     print("*****i*************################", i, i,i)
     random.append(main())
             
