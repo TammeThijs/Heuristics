@@ -42,36 +42,18 @@ def main():
     
     # create a profit list to remember all profits
     profit = []
-
-    # create the matrix with first bin width and second bin heigth
-    matrix = [[0 for i in range(height)] for j in range(width)]
     
-    # Show info
-    print("De eerste index is: " + str(len(matrix)))
-    print("De tweede index is: " + str(len(matrix[0])))
+    # place the houses on the grid.
+    placed = True
+    # 1 for 20, 2 for 40, 3 for 60
+    houses_to_place = 1
+    while(placed):
+        try:
+            matrix, houselist = movement.houses_to_place(houses_to_place, width, height)
+            placed = False
+        except:
+            print('error happend')
         
-    # All houses will get a unique house id
-    houseid = 0
-    # keep track of all houses
-    houselist = []
-    
-    # place the houses
-    for i in range(3):
-        house = hc.Maison()
-        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
-    for i in range(5):
-        house = hc.Bungalow()
-        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
-    for i in range(12):
-        house = hc.Eengezinswoning()
-        matrix, house = movement.random_placing(matrix, house, width, height, houseid)
-        houselist.append(house)
-        houseid += 1
-    
 
     print(len(houselist))
     # 20 huizen
