@@ -43,7 +43,8 @@ def main(run):
     houselist = vrijstand.calculate_vrijstand(matrix, houselist) 
     
     # return calculated profit
-    return calculate_profit.calculate(houselist)
+    #return calculate_profit.calculate(houselist)
+    return matrix
 
 '''
 place houses 
@@ -51,7 +52,7 @@ place houses
 2 for 40
 3 for 60
 '''
-
+'''
 #  run main any number of times
 random = []
 for i in range(1000):
@@ -80,3 +81,4 @@ plt.hist(random, bins = 100)
 plt.hist(random2, bins = 100)    
 plt.hist(random3, bins = 100)
 plt.show()
+'''

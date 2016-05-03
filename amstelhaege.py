@@ -138,7 +138,7 @@ def main():
     '''
     
     
-    display.build_grid(matrix)
+    display.build_grid(matrix, houselist)
 
     return calculate_profit.calculate(houselist)    
 #main()

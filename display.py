@@ -6,6 +6,9 @@ Created on Thu Apr 28 13:15:31 2016
 """
 
 import pygame
+import random_gausian as rg
+import move_house as mh
+import random
 
 def get_colours():
     
@@ -18,6 +21,7 @@ def get_colours():
     Yellow = (255, 215, 0) # Eengezinswoning 20
     Orange = (255, 127, 0) # Bungalow 15
     Red = (205, 38, 38) # Maison 10
+    Black = (0,0,0)
     
     colours = {0 : Green,
                1 : White,
@@ -26,7 +30,11 @@ def get_colours():
                30 : Blue,
                20 : Yellow,
                15 : Orange,
-               10 : Red
+               10 : Red,
+               21 : Black,
+               16 : Black,
+               11 : Black,
+               -1 : Black
                }
     return colours    
 
@@ -39,7 +47,7 @@ def init_pygame(width, heigth):
     
     return screen
     
-def build_grid(matrix):
+def build_grid(matrix, houselist):
     
     colours = get_colours()    
     screen = init_pygame(640, 600)
@@ -53,10 +61,14 @@ def build_grid(matrix):
                 running = False
                 
         # draw display
+        #matrix = rg.main(3)
+        house = random.randint(0, len(houselist) - 1)
+        matrix = mh.move_house(matrix, houselist[house], 10, 10)             
         for row in range(300):
             for column in range(320):                    
               pygame.draw.rect(screen, colours[matrix[row][column]], 
                 (column * tilesize, row * tilesize, 10, 10))
+        pygame.display.flip()
             
     pygame.display.quit()
     pygame.quit()
