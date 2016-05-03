@@ -9,6 +9,8 @@ import pygame
 import random_gausian as rg
 import move_house as mh
 import random
+import vrijstand as cv
+import calculate_profit as cp
 
 def get_colours():
     
@@ -68,8 +70,14 @@ def build_grid(matrix, houselist):
             for column in range(320):                    
               pygame.draw.rect(screen, colours[matrix[row][column]], 
                 (column * tilesize, row * tilesize, 10, 10))
+                
+        cv.calculate_vrijstand(matrix, houselist)
+        profit = cp.calculate(houselist)
+        caption = "Amstelhaege. Profit: " + str(profit)
+        pygame.display.set_caption(caption)
         pygame.display.flip()
-            
+               
+    
     pygame.display.quit()
     pygame.quit()
 
