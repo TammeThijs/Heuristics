@@ -46,7 +46,7 @@ def main():
     # place the houses on the grid.
     placed = True
     # 1 for 20, 2 for 40, 3 for 60
-    houses_to_place = 1
+    houses_to_place = 3
     while(placed):
         try:
             matrix, houselist = movement.houses_to_place(houses_to_place, width, height)
