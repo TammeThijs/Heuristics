@@ -53,89 +53,6 @@ def main():
             placed = False
         except:
             print('error happend')
-        
-
-    print(len(houselist))
-    # 20 huizen
-    #matrix = simple_algoritme(width, height, 3, 5, 12)
-    
-
-    
-    '''
-    plt.matshow(matrix, 
-                origin = 'lower',   # Set 0,0 at bottom
-                cmap=plt.cm.ocean)  # Set colors to ocean
-    # Show color bar
-    plt.colorbar()
-    plt.grid()
-    '''
-    # Save on pc
-    #plt.savefig("test.png")
-    '''
-    print(houselist)
-
-    
-    # get all positions to plot
-    coordinates = []
-    id_list = []
-    for house in houselist:
-        x = house.get_xpos()
-        y = house.get_ypos()
-        id_list.append(str(house.get_id()))
-        coordinates.append((y, x))
-        
-    # plot the grid with their position          
-    fig = plt.figure()
-    ax = fig.add_subplot(111, autoscale_on=False)
-    plt.imshow(matrix, cmap=plt.cm.ocean)
-    for i in range(len(coordinates)):    
-        ax.annotate(id_list[i], fontsize=20, xy=coordinates[i])
-    plt.xlim(0,320)
-    plt.ylim(0,300)
-    plt.grid()
-    plt.show()
-    plt.close()
-    
-    # caclculte vrijstand
-    houselist = vrijstand.calculate_vrijstand(matrix, houselist)
-    profit.append(calculate_profit.calculate(houselist))
-    print("Initial profit = ", profit[0])
-    
-    print("LETS MOVE SOME HOUSES*************************************************")
-    for j in range(20):
-        print("run: ", j)
-        for i in range(len(houselist)):
-            matrix = move_house.move_house(matrix, houselist[i], 5, 5)
-        
-        # calculate profit of move
-        houselist = vrijstand.calculate_vrijstand(matrix, houselist)
-        profit.append(calculate_profit.calculate(houselist))
-    
-
-    # make a plot when finished
-    coordinates = []
-    id_list = []
-    for house in houselist:
-        x = house.get_xpos()
-        y = house.get_ypos()
-        id_list.append(str(house.get_id()))
-        coordinates.append((y, x))
-        
-    fig = plt.figure()
-    ax = fig.add_subplot(111, autoscale_on=False)
-    plt.imshow(matrix, cmap=plt.cm.ocean)
-    for i in range(len(coordinates)):    
-        ax.annotate(id_list[i], fontsize=20, xy=coordinates[i])
-    plt.xlim(0,320)
-    plt.ylim(0,300)
-    plt.grid()
-    plt.show()
-    plt.close()
-
-
-    houselist = vrijstand.calculate_vrijstand(matrix, houselist)
-    profit.append(calculate_profit.calculate(houselist))
-    '''
     
     
     display.build_grid(matrix, houselist)
@@ -152,3 +69,18 @@ for i in range(1):
             
 #plt.hist(random, bins = 100)
 #main()
+            
+            
+'''
+# a plot
+    fig = plt.figure()
+    ax = fig.add_subplot(111, autoscale_on=False)
+    plt.imshow(matrix, cmap=plt.cm.ocean)
+    for i in range(len(coordinates)):    
+        ax.annotate(id_list[i], fontsize=20, xy=coordinates[i])
+    plt.xlim(0,320)
+    plt.ylim(0,300)
+    plt.grid()
+    plt.show()
+    plt.close()
+'''

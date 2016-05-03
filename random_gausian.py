@@ -43,8 +43,7 @@ def main(run):
     houselist = vrijstand.calculate_vrijstand(matrix, houselist) 
     
     # return calculated profit
-    #return calculate_profit.calculate(houselist)
-    return matrix
+    return calculate_profit.calculate(houselist)
 
 '''
 place houses 
