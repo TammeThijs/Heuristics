@@ -1,7 +1,7 @@
+
 # -*- coding: utf-8 -*-
 """
 Created on Thu Apr 28 13:15:31 2016
-
 @author: Stijn
 """
 
@@ -83,7 +83,6 @@ def build_grid(matrix, houselist):
 
     
                     
-    
     
     
     
