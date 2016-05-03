@@ -138,28 +138,28 @@ def placement_check(house, matrix, xpos, ypos, move = False, maison = True):
         if(maison):
             # middle between
             # bot
-            if(matrix[xpos +  int(house.get_width()/3)][ypos - house.get_vrijstand()] > 9):
+            if(matrix[xpos +  4][ypos - house.get_vrijstand()] > 9):
                 return False
             # right
-            if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + int(house.get_heigth()/3)] > 9):
+            if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + 4] > 9):
                 return False
             # top
-            if(matrix[xpos + int(house.get_width()/3)][ypos + house.get_heigth() + house.get_vrijstand()] > 9):
+            if(matrix[xpos + 4][ypos + house.get_heigth() + house.get_vrijstand()] > 9):
                 return False    
             # left
-            if(matrix[xpos - house.get_vrijstand()][ypos + int(house.get_heigth()/3)] > 9):
+            if(matrix[xpos - house.get_vrijstand()][ypos + 4] > 9):
                 return False
             # bot
-            if(matrix[xpos +  int(2*house.get_width()/3)][ypos - house.get_vrijstand()] > 9):
+            if(matrix[xpos + 18][ypos - house.get_vrijstand()] > 9):
                 return False
             # right
-            if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + int(2*house.get_heigth()/3)] > 9):
+            if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + 18] > 9):
                 return False
             # top
-            if(matrix[xpos + int(2*house.get_width()/3)][ypos + house.get_heigth() + house.get_vrijstand()] > 9):
+            if(matrix[xpos + 18][ypos + house.get_heigth() + house.get_vrijstand()] > 9):
                 return False    
             # left
-            if(matrix[xpos - house.get_vrijstand()][ypos + int(2*house.get_heigth()/3)] > 9):
+            if(matrix[xpos - house.get_vrijstand()][ypos + 18] > 9):
                 return False                
                 
         else:
