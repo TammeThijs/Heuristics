@@ -36,8 +36,13 @@ def move_house(matrix, house, dx, dy):
     new_xpos = xpos + random.randint(-dx,dx)
     new_ypos = ypos + random.randint(-dy,dy)
     
+    if(house.get_housetype == "maison"):
+        maison = True
+    else:
+        maison = False
+    
     # check if you can move, if yes move, if no return old matrix
-    if(movement.placement_check(house, temp_matrix, new_xpos, new_ypos) == True):
+    if(movement.placement_check(house, temp_matrix, new_xpos, new_ypos, move = True) == True):
         #print("house is moved")
         temp_matrix = movement.place_house(house, temp_matrix, new_xpos, new_ypos)
         return temp_matrix[0]

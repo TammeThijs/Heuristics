@@ -87,7 +87,7 @@ With xpos and ypos the bottem left coordinates.
 
 returns true if house can be placed
 '''
-def placement_check(house, matrix, xpos, ypos):
+def placement_check(house, matrix, xpos, ypos, move = False, maison = True):
 
     width = len(matrix)
     heigth = len(matrix[0])
@@ -108,7 +108,8 @@ def placement_check(house, matrix, xpos, ypos):
         return False
     
     #Validation done for all houses
-        
+    
+    # Check if the house can be placed. 
     # bottem left
     if(matrix[xpos][ypos] != 0):
         return False
@@ -119,6 +120,64 @@ def placement_check(house, matrix, xpos, ypos):
     if(matrix[xpos+ house.get_width()][ypos + house.get_heigth()] != 0):
         return False
     
+    if(move):
+        # check for vrijstand
+        # bot left
+        if(matrix[xpos - house.get_vrijstand()][ypos - house.get_vrijstand()] > 9):
+            return False
+        #bot right
+        if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos - house.get_vrijstand()] > 9):
+            return False
+        # top left
+        if(matrix[xpos - house.get_vrijstand()][ypos + house.get_heigth() + house.get_vrijstand()] > 9):
+            return False    
+        # top rigth
+        if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + house.get_heigth() + house.get_vrijstand()] > 9):
+            return False
+
+        if(maison):
+            # middle between
+            # bot
+            if(matrix[xpos +  int(house.get_width()/3)][ypos - house.get_vrijstand()] > 9):
+                return False
+            # right
+            if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + int(house.get_heigth()/3)] > 9):
+                return False
+            # top
+            if(matrix[xpos + int(house.get_width()/3)][ypos + house.get_heigth() + house.get_vrijstand()] > 9):
+                return False    
+            # left
+            if(matrix[xpos - house.get_vrijstand()][ypos + int(house.get_heigth()/3)] > 9):
+                return False
+            # bot
+            if(matrix[xpos +  int(2*house.get_width()/3)][ypos - house.get_vrijstand()] > 9):
+                return False
+            # right
+            if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + int(2*house.get_heigth()/3)] > 9):
+                return False
+            # top
+            if(matrix[xpos + int(2*house.get_width()/3)][ypos + house.get_heigth() + house.get_vrijstand()] > 9):
+                return False    
+            # left
+            if(matrix[xpos - house.get_vrijstand()][ypos + int(2*house.get_heigth()/3)] > 9):
+                return False                
+                
+        else:
+            # bot
+            if(matrix[xpos +  int(house.get_width()/2)][ypos - house.get_vrijstand()] > 9):
+                return False
+            # right
+            if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + int(house.get_heigth()/2)] > 9):
+                return False
+            # top
+            if(matrix[xpos + int(house.get_width()/2)][ypos + house.get_heigth() + house.get_vrijstand()] > 9):
+                return False    
+            # left
+            if(matrix[xpos - house.get_vrijstand()][ypos + int(house.get_heigth()/2)] > 9):
+                return False
+            
+    
+        
     # passed every test so far
     return True    
     
