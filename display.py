@@ -53,7 +53,7 @@ def init_pygame(width, heigth):
     
     return screen
     
-def build_grid(matrix, houselist):
+def build_grid(matrix, houselist, profitlist):
     
     colours = get_colours()    
     screen = init_pygame(640, 600)
@@ -69,7 +69,7 @@ def build_grid(matrix, houselist):
         # draw display
         #matrix = rg.main(3)
         house = random.randint(0, len(houselist) - 1)
-        matrix = mh.move_house(matrix, houselist[house], 10, 10)             
+        matrix = mh.move_house(matrix, houselist[house], 10, 10, houselist, profitlist)            
         for row in range(300):
             for column in range(320):                    
               pygame.draw.rect(screen, colours[matrix[row][column]], 

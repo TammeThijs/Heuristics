@@ -7,13 +7,15 @@ Created on Thu Apr 21 12:12:14 2016
 
 import movement
 import random
+import vrijstand
+import calculate_profit as profit
 
 
 '''
 Moves a house to a new random position (within a range)
 with a random range from -dx,dx and -dy,dy in meters
 '''
-def move_house(matrix, house, dx, dy, max_atempts = 100):
+def move_house(matrix, house, dx, dy, houselist, profitlist, max_atempts = 100):
     # transfer meters to rigth index namly0.5 meters per bukket
     dx *= 2
     dy *= 2    
@@ -29,7 +31,7 @@ def move_house(matrix, house, dx, dy, max_atempts = 100):
     
     # remove house, so we can move it
     temp_matrix = remove_house(temp_matrix, house)
-    for atemps in range(max_atempts):
+    for i in range(max_atempts):
         # get pos new position
         xpos = house.get_xpos()
         ypos = house.get_ypos()
@@ -45,6 +47,7 @@ def move_house(matrix, house, dx, dy, max_atempts = 100):
         if(movement.placement_check(house, temp_matrix, new_xpos, new_ypos, move = True, maison = house_maison) == True):
             #print("house is moved")
             temp_matrix = movement.place_house(house, temp_matrix, new_xpos, new_ypos)
+            vrijstand.calculate_vrijstand(matrix, houselist)
             return temp_matrix[0]
 #        else:
 #            #print("house could not be moved")
