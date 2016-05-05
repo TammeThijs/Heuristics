@@ -13,7 +13,7 @@ import random
 Moves a house to a new random position (within a range)
 with a random range from -dx,dx and -dy,dy in meters
 '''
-def move_house(matrix, house, dx, dy):
+def move_house(matrix, house, dx, dy, max_atempts = 100):
     # transfer meters to rigth index namly0.5 meters per bukket
     dx *= 2
     dy *= 2    
@@ -29,26 +29,26 @@ def move_house(matrix, house, dx, dy):
     
     # remove house, so we can move it
     temp_matrix = remove_house(temp_matrix, house)
-    
-    # get pos new position
-    xpos = house.get_xpos()
-    ypos = house.get_ypos()
-    new_xpos = xpos + random.randint(-dx,dx)
-    new_ypos = ypos + random.randint(-dy,dy)
-    
-    if(house.get_house_type() == "maison"):
-        house_maison = True
-    else:
-        house_maison = False
-    
-    # check if you can move, if yes move, if no return old matrix
-    if(movement.placement_check(house, temp_matrix, new_xpos, new_ypos, move = True, maison = house_maison) == True):
-        #print("house is moved")
-        temp_matrix = movement.place_house(house, temp_matrix, new_xpos, new_ypos)
-        return temp_matrix[0]
-    else:
-        #print("house could not be moved")
-        return matrix
+    for atemps in range(max_atempts):
+        # get pos new position
+        xpos = house.get_xpos()
+        ypos = house.get_ypos()
+        new_xpos = xpos + random.randint(-dx,dx)
+        new_ypos = ypos + random.randint(-dy,dy)
+        
+        if(house.get_house_type() == "maison"):
+            house_maison = True
+        else:
+            house_maison = False
+        
+        # check if you can move, if yes move, if no return old matrix
+        if(movement.placement_check(house, temp_matrix, new_xpos, new_ypos, move = True, maison = house_maison) == True):
+            #print("house is moved")
+            temp_matrix = movement.place_house(house, temp_matrix, new_xpos, new_ypos)
+            return temp_matrix[0]
+#        else:
+#            #print("house could not be moved")
+    return matrix
 
 '''
 Remove the house

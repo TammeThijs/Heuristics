@@ -26,7 +26,7 @@ import calculate_profit
 import sys
 sys.setrecursionlimit(10**6)              
 
-def main():
+def amstelhaege():
     '''
     Run all the code.
     This is the main function.
@@ -63,8 +63,9 @@ def main():
 
 random = []
 for i in range(1):
+    print("begin")
     print("*****i*************################", i, i,i)
-    random.append(main())
+    random.append(amstelhaege())
             
             
 #plt.hist(random, bins = 100)

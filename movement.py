@@ -25,16 +25,19 @@ def houses_to_place(houses, width, height):
     houseid = 0
     for i in range(3*houses):
         house = hc.Maison()
+        house.change_id(houseid)
         matrix, house = random_placing(matrix, house, width, height, houseid)
         houselist.append(house)
         houseid += 1
     for i in range(5*houses):
         house = hc.Bungalow()
+        house.change_id(houseid)
         matrix, house = random_placing(matrix, house, width, height, houseid)
         houselist.append(house)
         houseid += 1
     for i in range(12*houses):
         house = hc.Eengezinswoning()
+        house.change_id(houseid)
         matrix, house = random_placing(matrix, house, width, height, houseid)
         houselist.append(house)
         houseid += 1
@@ -52,9 +55,7 @@ def random_placing(matrix, house, width, height, houseid, iteration = 0):
     
     # get random position
     randy = random.randint(0, height-1)
-    randx = random.randint(0, width-1)
-    if(house.get_id() == False):
-        house.change_id(houseid)
+    randx = random.randint(0, width-1)       
     
     # check if house can be placed
     if(placement_check(house, matrix, randx, randy) 

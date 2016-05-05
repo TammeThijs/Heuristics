@@ -45,7 +45,7 @@ def main(run):
     return cp.calculate(houselist)
     #return matrix
 
-
+'''
 #  run main any number of times
 random = []
 for i in range(1000):
@@ -75,7 +75,7 @@ plt.hist(random2, bins = 100)
 plt.hist(random3, bins = 100)
 plt.show()
 
-
+'''
 
 
 '''

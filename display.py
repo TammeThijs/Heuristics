@@ -36,7 +36,11 @@ def get_colours():
                21 : Black,
                16 : Black,
                11 : Black,
-               -1 : Black
+               -1 : Black,
+               5 : Blue,
+               6 : Blue,
+               7 : Blue,
+               8 : Blue
                }
     return colours    
 
