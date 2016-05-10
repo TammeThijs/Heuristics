@@ -8,6 +8,7 @@ Created on Tue Apr 19 13:04:16 2016
 import random
 import houseclass as hc
 import waterclass as wc
+import numpy as np
 
 
 
@@ -16,7 +17,7 @@ Call functions to place houses
 '''
 def houses_to_place(houses, width, height):
     # make a matrix for if pixel is taken.
-    matrix = [[0 for i in range(height)] for j in range(width)]    
+    matrix = [[0 for i in range(height)] for j in range(width)] 
     
     matrix = wc.place_water(matrix)    
     

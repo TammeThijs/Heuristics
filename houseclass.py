@@ -81,7 +81,16 @@ class Eengezinswoning(House):
         self.gain = 1.03 # profit margin/m free space
         self.value = 285000 # startwaarde
         self.housecolor = 20
-    
+
+    def copy(self):
+        new = Eengezinswoning()
+        new.change_extra_vrijstand(self.extra_vrijstand)
+        new.change_xpos(self.posx)
+        new.change_ypos(self.posy)
+        new.change_id(self.houseid)
+        return new
+
+
 class Bungalow(House):
     
     def __init__(self):
@@ -98,6 +107,14 @@ class Bungalow(House):
         self.posy = False
         self.houseid = False
         self.housecolor = 15
+    
+    def copy(self):
+        new = Bungalow()
+        new.change_extra_vrijstand(self.extra_vrijstand)
+        new.change_xpos(self.posx)
+        new.change_ypos(self.posy)
+        new.change_id(self.houseid)
+        return new
         
 class Maison(House):
     
@@ -112,4 +129,11 @@ class Maison(House):
         self.gain = 1.06 # profit margin/m free space
         self.value = 610000
         self.housecolor = 10
-       
+   
+    def copy(self):
+        new = Maison()
+        new.change_extra_vrijstand(self.extra_vrijstand)
+        new.change_xpos(self.posx)
+        new.change_ypos(self.posy)
+        new.change_id(self.houseid)
+        return new

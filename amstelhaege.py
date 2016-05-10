@@ -22,8 +22,10 @@ import houseclass as hc
 import movement
 import move_house
 import vrijstand
-import calculate_profit as profit
+import calculate_profit as Profit
 import sys
+import saved_state as ss
+import numpy as np
 sys.setrecursionlimit(10**6)              
 
 def amstelhaege():
@@ -40,8 +42,10 @@ def amstelhaege():
     width = 300
     height = 320
     
-    # create a profit list to remember all profits
-    profitlist = []
+    
+    '''
+    Init
+    '''    
     
     # place the houses on the grid.
     placed = True
@@ -53,11 +57,16 @@ def amstelhaege():
             placed = False
         except:
             print('error happend')
+            
     
     vrijstand.calculate_vrijstand(matrix, houselist)
-    profitlist.append(profit.calculate(houselist))
+    profit = Profit.calculate(houselist)
     
-    display.build_grid(matrix, houselist, profitlist)
+    state = ss.Saved_State(profit, houselist)
+    # save 
+    
+    return display.build_grid(state, matrix)
+    
 
 
 #main()

@@ -15,22 +15,28 @@ import calculate_profit as profit
 Moves a house to a new random position (within a range)
 with a random range from -dx,dx and -dy,dy in meters
 '''
-def move_house(matrix, house, dx, dy, houselist, profitlist, max_atempts = 100):
+def move_house(matrix, house, dx, dy, max_atempts = 100):
     # transfer meters to rigth index namly0.5 meters per bukket
     dx *= 2
     dy *= 2    
     
     # make copy of matrix for when move is incorrect
-    temp_matrix = []
+    new_matrix = []
     for i in range(len(matrix)):
         temp_list = []
         for j in range(len(matrix[0])):
             temp_list.append(matrix[i][j])
             
-        temp_matrix.append(temp_list)
+        new_matrix.append(temp_list)
     
     # remove house, so we can move it
-    temp_matrix = remove_house(temp_matrix, house)
+    new_matrix = remove_house(new_matrix, house)
+    
+    if(house.get_house_type() == "maison"):
+        house_maison = True
+    else:
+        house_maison = False
+            
     for i in range(max_atempts):
         # get pos new position
         xpos = house.get_xpos()
@@ -38,20 +44,14 @@ def move_house(matrix, house, dx, dy, houselist, profitlist, max_atempts = 100):
         new_xpos = xpos + random.randint(-dx,dx)
         new_ypos = ypos + random.randint(-dy,dy)
         
-        if(house.get_house_type() == "maison"):
-            house_maison = True
-        else:
-            house_maison = False
-        
         # check if you can move, if yes move, if no return old matrix
-        if(movement.placement_check(house, temp_matrix, new_xpos, new_ypos, move = True, maison = house_maison) == True):
+        if(movement.placement_check(house, new_matrix, new_xpos, new_ypos, move = True, maison = house_maison) == True):
             #print("house is moved")
-            temp_matrix = movement.place_house(house, temp_matrix, new_xpos, new_ypos)
-            vrijstand.calculate_vrijstand(matrix, houselist)
-            return temp_matrix[0]
+            new_matrix = movement.place_house(house, new_matrix, new_xpos, new_ypos)
+            return True, new_matrix[0]
 #        else:
 #            #print("house could not be moved")
-    return matrix
+    return False, matrix
 
 '''
 Remove the house

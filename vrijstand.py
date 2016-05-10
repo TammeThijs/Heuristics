@@ -15,8 +15,7 @@ def calculate_vrijstand(matrix, house_list):
     for house in house_list:
         # find its vrijstand
         meters = find_vrijstand(matrix, house)
-        
-        # vrijstand to class
+
         house.change_extra_vrijstand(int(meters/2))
         
     # return the list

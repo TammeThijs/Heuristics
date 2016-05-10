@@ -29,18 +29,18 @@ def get_colours():
                1 : White,
                2 : Overlap1,
                3 : Overlap2,
-               30 : Blue,
+               4 : Black,
                20 : Yellow,
                15 : Orange,
                10 : Red,
-               21 : Black,
-               16 : Black,
-               11 : Black,
-               -1 : Black,
                5 : Blue,
                6 : Blue,
                7 : Blue,
-               8 : Blue
+               8 : Blue,
+               -1 : Black,
+               19 : Black,
+               14 : Black,
+               21 : Black
                }
     return colours    
 
@@ -53,31 +53,44 @@ def init_pygame(width, heigth):
     
     return screen
     
-def build_grid(matrix, houselist, profitlist):
+def build_grid(state, matrix):
     
     colours = get_colours()    
     screen = init_pygame(640, 600)
     tilesize = 2 # width and height    
     
     running = True
-
+    
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 
-        # draw display
-        #matrix = rg.main(3)
+        # copy of houselist              
+        houselist = state.get_houselist()
+        
+        # Move house
         house = random.randint(0, len(houselist) - 1)
-        matrix = mh.move_house(matrix, houselist[house], 10, 10, houselist, profitlist)            
+        moved, new_matrix = mh.move_house(matrix, houselist[house], 10, 10)
+        if(moved):
+            cv.calculate_vrijstand(new_matrix, houselist)
+            new_profit = cp.calculate(houselist)
+            if(new_profit > state.get_total_value()):
+                print("Acc")
+                print("profit was" + str(new_profit))
+                state.set_houselist(houselist)
+                state.set_total_value(new_profit)
+                matrix =  new_matrix
+            else:
+                print("DECLINED!")
+                print("profit was" + str(new_profit))
+        # draw         
         for row in range(300):
-            for column in range(320):                    
-              pygame.draw.rect(screen, colours[matrix[row][column]], 
-                (column * tilesize, row * tilesize, 10, 10))
-                
-        cv.calculate_vrijstand(matrix, houselist)
-        profit = cp.calculate(houselist)
-        caption = "Amstelhaege. Profit: " + str(profit)
+            for column in range(320):
+                pygame.draw.rect(screen, colours[new_matrix[row][column]], 
+                                 (column * tilesize, row * tilesize, 10, 10))
+        
+        caption = "Amstelhaege. Profit: " + str(state.get_total_value())
         pygame.display.set_caption(caption)
         pygame.display.flip()
                

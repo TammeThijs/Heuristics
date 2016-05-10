@@ -17,3 +17,15 @@ def calculate(house_list):
         
     #print("current total profit: ", money)
     return money
+
+def calculate_vrijstand(house_list):
+    totale_vrijstand = 0
+    for house in house_list:
+        vrijstand = house.get_vrijstand()
+        extra_vrijstand = house.get_extra_vrijstand()
+        total = vrijstand + extra_vrijstand
+        totale_vrijstand += total
+        #print("opbrengst van: ", house.get_id(), " is: ", total)
+        
+    #print("current total profit: ", money)
+    return totale_vrijstand
