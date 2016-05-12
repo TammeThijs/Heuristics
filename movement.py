@@ -19,7 +19,7 @@ def houses_to_place(houses, width, height):
     # make a matrix for if pixel is taken.
     matrix = [[0 for i in range(height)] for j in range(width)] 
     
-    matrix = wc.place_water(matrix)    
+    matrix, water = wc.place_water(matrix)    
     
     houselist = []
     
@@ -42,7 +42,7 @@ def houses_to_place(houses, width, height):
         matrix, house = random_placing(matrix, house, width, height, houseid)
         houselist.append(house)
         houseid += 1
-    return matrix, houselist
+    return matrix, houselist, water
 
 '''
 Place houses random on the matrix

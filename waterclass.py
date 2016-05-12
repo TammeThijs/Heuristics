@@ -6,8 +6,10 @@ Created on Tue May  3 15:12:11 2016
 """
 import random
 
-class water_pool():
-    def __init__(self, width, heigth):
+class Water_pool():
+    def __init__(self, width, heigth, xpos, ypos):
+        self.xpos = xpos
+        self.ypos = ypos
         self.width = width
         self.heigth = heigth
         self.area = width*heigth
@@ -22,6 +24,10 @@ class water_pool():
         return self.xpos
     def get_ypos(self):
         return self.ypos
+    def set_xpos(self, new_xpos):
+        self.xpos = new_xpos
+    def set_ypos(self, new_ypos):
+        self.ypos = new_ypos
     
     def change_size(self, width, heigth):
         self.width = width
@@ -30,7 +36,7 @@ class water_pool():
     
     
 
-class water():
+class Water():
     def __init__(self):
         self.max_pools = 4
         self.ratio = 4
@@ -54,10 +60,20 @@ class water():
     def delete_pool(self, index):
         self.pools.pop(index)
         
+    def copy(self):
+        new_water = Water()
+        for pool in self.pools:
+            
+            new_water_pool = Water_pool(pool.get_width(), pool.get_heigth(),
+                                  pool.get_xpos(), pool.get_ypos())
+            
+            new_water.new_pool(new_water_pool)
+        return new_water
 '''
 place water by finding the larges free space and place it there.
 '''        
 def place_water(matrix):
+    water = Water()
     for i in range(4):
         search = True
         while(search):
@@ -73,12 +89,14 @@ def place_water(matrix):
                 search = True
             if(matrix[xstart + 70][ystart + 70] != 0):
                 search = True
+        
+        water_pool = Water_pool(70, 70, xstart, ystart)
         # place water        
         for x in range(70):
             for y in range(70):
                 matrix[x+xstart][y+ystart] = 5
-                
-    return matrix
+        water.new_pool(water_pool)        
+    return matrix, water
 
 
 '''
