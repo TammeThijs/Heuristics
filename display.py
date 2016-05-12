@@ -75,9 +75,23 @@ def build_grid(state, matrix):
         
         # Move house
         water_or_house = 0.9
+        far_or_short = 0.9
         if(water_or_house > random.random()):
             house = random.randint(0, len(houselist) - 1)
-            moved, new_matrix = mh.move_house(matrix, houselist[house], 10, 10)
+            if(far_or_short > random.random()):
+                moved, new_matrix = mh.move_house(matrix, houselist[house], 10, 10)
+            else:
+                times = 0
+                loop = True
+                while(loop and times < 10):
+                    print("far move       " + str(times) )
+                    times += 1
+                    moved, new_matrix = mh.move_bulk(matrix, houselist, 500, 500 , 1, max_attempts = 10000)
+                    loop = moved
+            if(moved):
+                print("HOLYMOTHAFUCKA:")
+            else:
+                print("not worked")
         else:
             water_pool = random.randint(0, len(water.get_pools()) - 1)
             moved, new_matrix = mh.move_water(matrix, water.get_pool(water_pool), 20, 20)
