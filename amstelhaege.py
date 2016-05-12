@@ -18,6 +18,7 @@ Stephan 04/04 21.13
 import matplotlib.pyplot as plt
 import pygame
 import display
+import displayDebug
 import houseclass as hc
 import movement
 import move_house
