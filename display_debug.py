@@ -38,10 +38,6 @@ def get_colours():
                6 : Blue,
                7 : Blue,
                8 : Blue,
-               -1 : Black,
-               19 : Black,
-               14 : Black,
-               21 : Black
                }
     return colours    
 
@@ -63,7 +59,7 @@ def build_grid(state, matrix):
     running = True
     
     # Start Temp Simulated Annealing
-    temperature = 100
+    temperature = 10*10**6
     start_temp = temperature
     count = 0.0
     
@@ -74,30 +70,43 @@ def build_grid(state, matrix):
                 
         # copy of houselist              
         houselist = state.get_houselist()
+        water = state.get_water()
         
         # Move house
-        house = random.randint(0, len(houselist) - 1)
-        moved, new_matrix = mh.move_house(matrix, houselist[house], 10, 10)
+        water_or_house = 0.9
+        if(water_or_house > random.random()):
+            print("move house")
+            house = random.randint(0, len(houselist) - 1)
+            moved, new_matrix = mh.move_house(matrix, houselist[house], 10, 10)
+        else:
+            print("move water")
+            water_pool = random.randint(0, len(water.get_pools()) - 1)
+            moved, new_matrix = mh.move_water(matrix, water.get_pool(water_pool), 20, 20)
+            
         if(moved):
             cv.calculate_vrijstand(new_matrix, houselist)
             new_profit = cp.calculate(houselist)
-            if(new_profit > state.get_total_value()):
-#                print("Acc")
+            if(new_profit >= state.get_total_value()):
+                print("Accepted !!")
 #                print("profit was" + str(new_profit))
                 state.set_houselist(houselist)
                 state.set_total_value(new_profit)
+                state.set_water(water)
                 matrix =  new_matrix
-            elif((state.get_total_value() - new_profit) / temperature > random.random()):
-#                print('Declined yet accepted!')
+            elif((state.get_total_value() - new_profit) / temperature  > random.random()):
+                print('*** Declined yet accepted!')
+                print((state.get_total_value() - new_profit) / temperature )
                 state.set_houselist(houselist)
                 state.set_total_value(new_profit)
+                state.set_water(water)
                 matrix =  new_matrix
-           # else:
-#                print("DECLINED!")
+            else:
+                print("#### DECLINED!")
+                print((state.get_total_value() - new_profit) / temperature )
 #                print("profit was" + str(new_profit))
-                
-            temperature = start_temp * ((0.999) ** abs(1000 - count))
-            print(temperature)
+            count += 1
+            temperature = start_temp * ((0.99) ** abs(1000 - count))
+            print("temp:                                            " + str(temperature))
             
         # draw         
         for row in range(300):

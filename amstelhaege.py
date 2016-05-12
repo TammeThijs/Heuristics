@@ -80,6 +80,7 @@ def run_with_pygame():
     '''
     # make sure you keep track of matrix witch will be the latest version
     global matrix
+    global state
     
     # place houses
     not_placed = True
@@ -94,8 +95,8 @@ def run_with_pygame():
             not_placed = True    
 
     # calculate initial profit
-    free_space.calculate(matrix, houselist)
-    result = profit.calculate()
+    free_space.calculate_vrijstand(matrix, houselist)
+    result = profit.calculate(houselist)
             
     # save findings
     state = ss.Saved_State(result, houselist, water)
