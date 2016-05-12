@@ -72,5 +72,89 @@ def remove_house(matrix, house):
                 matrix[x][y] = 0       
     return matrix
     
+def move_water(matrix, water, dx, dy, max_atempts = 100):
+    # transfer meters to rigth index namly0.5 meters per bukket
+    #print("move Water")
+    dx *= 2
+    dy *= 2    
+    #print("x" + str(water.get_xpos()))
+    #print("y" + str(water.get_ypos()))
+    # make copy of matrix for when move is incorrect
+    new_matrix = []
+    for i in range(len(matrix)):
+        temp_list = []
+        for j in range(len(matrix[0])):
+            temp_list.append(matrix[i][j])
+            
+        new_matrix.append(temp_list)
+    
+    # remove water, so we can move it
+    new_matrix = remove_water(new_matrix, water)
+
+            
+    for i in range(max_atempts):
+        # get pos new position
+        xpos = water.get_xpos()
+        ypos = water.get_ypos()
+        new_xpos = xpos + random.randint(-dx,dx)
+        new_ypos = ypos + random.randint(-dy,dy)
+        
+        # check if you can move, if yes move, if no return old matrix
+        if(water_placement_check(new_matrix, water, new_xpos, new_ypos)):
+            #print("water can be placed")
+            #print("house is moved")
+            new_matrix = replace_water(new_matrix, water, new_xpos, new_ypos)
+            return True, new_matrix
+#        else:
+#            #print("house could not be moved")
+    #print("water canNOT! be placed")
+    return False, matrix
+    
+def remove_water(matrix, water):
+    # TODO GET POS OF HOUSE
+    xpos = water.get_xpos()
+    ypos = water.get_ypos()
+    
+    # remove house and take one from manditory free space            
+    for x in range(xpos, xpos + water.get_width()):
+        for y in range(ypos, ypos + water.get_heigth()):
+            matrix[x][y] -= 5      
+    return matrix    
     
     
+def water_placement_check(matrix, water, new_xpos, new_ypos):
+    width = water.get_width()
+    heigth = water.get_heigth()
+
+    # check boundry
+    if(new_xpos + width >= len(matrix) or new_xpos < 0):
+        return False
+    if(new_ypos + heigth >= len(matrix[0]) or new_ypos < 0):
+        return False
+        
+    # corners
+    if(matrix[new_xpos + width][new_ypos] > 4):
+        return False
+    if(matrix[new_xpos + width][new_ypos + heigth] > 4):
+        return False
+    if(matrix[new_xpos][new_ypos + heigth] > 4):
+        return False
+    if(matrix[new_xpos + width][new_ypos] > 4):
+        return False        
+    
+
+    for x in range(new_xpos, new_xpos + width, 7):
+        for y in range(new_ypos, new_ypos + heigth, 7):
+            return False
+    
+    return True
+                
+def replace_water(matrix, water, new_xpos, new_ypos):
+    water.set_xpos(new_xpos)
+    water.set_ypos(new_ypos)
+    
+    for x in range(new_xpos, new_xpos+water.get_width()):
+        for y in range(new_ypos, new_ypos + water.get_heigth()):
+            matrix[x][y] += 5
+            
+    return matrix

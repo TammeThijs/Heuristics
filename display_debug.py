@@ -6,6 +6,8 @@ Created on Thu Apr 28 13:15:31 2016
 """
 
 import pygame
+import matplotlib.pyplot as plt
+
 import move_house as mh
 import random
 import free_space as cv
@@ -60,6 +62,11 @@ def build_grid(state, matrix):
     
     running = True
     
+    # Start Temp Simulated Annealing
+    temperature = 100
+    start_temp = temperature
+    count = 0.0
+    
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -75,14 +82,23 @@ def build_grid(state, matrix):
             cv.calculate_vrijstand(new_matrix, houselist)
             new_profit = cp.calculate(houselist)
             if(new_profit > state.get_total_value()):
-                print("Acc")
-                print("profit was" + str(new_profit))
+#                print("Acc")
+#                print("profit was" + str(new_profit))
                 state.set_houselist(houselist)
                 state.set_total_value(new_profit)
                 matrix =  new_matrix
-            else:
-                print("DECLINED!")
-                print("profit was" + str(new_profit))
+            elif((state.get_total_value() - new_profit) / temperature > random.random()):
+#                print('Declined yet accepted!')
+                state.set_houselist(houselist)
+                state.set_total_value(new_profit)
+                matrix =  new_matrix
+           # else:
+#                print("DECLINED!")
+#                print("profit was" + str(new_profit))
+                
+            temperature = start_temp * ((0.999) ** abs(1000 - count))
+            print(temperature)
+            
         # draw         
         for row in range(300):
             for column in range(320):

@@ -6,10 +6,13 @@ Created on Thu Apr 28 13:15:31 2016
 """
 
 import pygame
+import random_gausian as rg
 import move_house as mh
 import random
-import free_space as cv
-import profit as cp
+import vrijstand as cv
+import movement
+import houseclass as hc
+import calculate_profit as cp
 
 def get_colours():
     
@@ -39,10 +42,7 @@ def get_colours():
                -1 : Black,
                19 : Black,
                14 : Black,
-               21 : Black,
-               -5 : Black,
-               25 : Black,
-               11 : Black
+               21 : Black
                }
     return colours    
 
@@ -55,7 +55,7 @@ def init_pygame(width, heigth):
     
     return screen
     
-def build_grid(state, matrix):
+def build_grid(matrix):
     
     colours = get_colours()    
     screen = init_pygame(640, 600)
@@ -68,41 +68,12 @@ def build_grid(state, matrix):
             if event.type == pygame.QUIT:
                 running = False
                 
-        # copy's      
-        houselist = state.get_houselist()
-        water = state.get_water()
-        
-        # Move house
-        water_or_house = 0.9
-        if(water_or_house > random.random()):
-            house = random.randint(0, len(houselist) - 1)
-            moved, new_matrix = mh.move_house(matrix, houselist[house], 10, 10)
-        else:
-            water_pool = random.randint(0, len(water.get_pools()) - 1)
-            moved, new_matrix = mh.move_water(matrix, water.get_pool(water_pool), 20, 20)
-        
-        if(moved):
-            cv.calculate_vrijstand(new_matrix, houselist)
-            new_profit = cp.calculate(houselist)
-            if(new_profit >= state.get_total_value()):
-                print("Acc")
-                print("profit was" + str(new_profit))
-                state.set_houselist(houselist)
-                state.set_water(water)
-                state.set_total_value(new_profit)
-                matrix =  new_matrix
-                
-            else:
-                print("DECLINED!")
-                print("profit was" + str(new_profit))
-        # draw        
         for row in range(300):
             for column in range(320):
-                pygame.draw.rect(screen, colours[new_matrix[row][column]], 
+                pygame.draw.rect(screen, colours[matrix[row][column]], 
                                  (column * tilesize, row * tilesize, 10, 10))
         
-        caption = "Amstelhaege. Profit: " + str(state.get_total_value())
-        pygame.display.set_caption(caption)
+        pygame.display.set_caption("Amstelhaege")
         pygame.display.flip()
                
     
@@ -111,7 +82,13 @@ def build_grid(state, matrix):
 
     
                     
-    
-    
+matrix = [[0 for i in range(0, 320)] for j in range(0, 300)]
+house = hc.Eengezinswoning()
+matrix, house = movement.random_placing(matrix, house, 320, 300, 1)
+house = hc.Maison()
+matrix, house = movement.random_placing(matrix, house, 320, 300, 1)
+house = hc.Bungalow()
+matrix, house = movement.random_placing(matrix, house, 320, 300, 1)  
+build_grid(matrix)
     
     

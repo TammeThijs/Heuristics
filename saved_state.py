@@ -7,9 +7,10 @@ Created on Tue May  3 14:31:10 2016
 
 class Saved_State():
     
-    def __init__(self, profit, houselist):
+    def __init__(self, profit, houselist, water):
         self.total_value = profit
         self.houselist = houselist
+        self.water = water
         
     def get_total_value(self):
         return self.total_value
@@ -18,11 +19,15 @@ class Saved_State():
         for house in self.houselist:
             new_list.append(house.copy())
         return new_list
+    def get_water(self):
+        return self.water.copy()
     
     def set_total_value(self, profit):
         self.total_value = profit
     def set_houselist(self, houselist):
         self.houselist = houselist
+    def set_water(self, water):
+        self.water = water
         '''
     def get_matrix(self):
         return self.matrix
