@@ -24,6 +24,8 @@ import free_space
 import profit
 import saved_state as ss
 import numpy as np
+import sys
+sys.setrecursionlimit(10**6)
 
 #grid variables
 width = 300 
@@ -32,7 +34,7 @@ height = 320
 def main():
 
     # 1 for 20, 2 for 40, 3 for 60
-    houses_to_place = 1
+    houses_to_place = 3
 
     showGaussian(houses_to_place, 1000, 2)
 
@@ -43,8 +45,16 @@ def showGaussian(houses, scope, desiredResult):
     savedResults = []
 
     for i in range(scope):
-        matrix, houselist, water = movement.houses_to_place(houses, width, height)
         result = 0        
+        placed = True
+        
+        while(placed):
+            try:
+                matrix, houselist, water = movement.houses_to_place(houses, width, height)
+                placed = False
+            except:
+                placed = True
+            
         
         if(desiredResult == 1):
             result = free_space.calculate(matrix, houselist)
@@ -59,5 +69,6 @@ def showGaussian(houses, scope, desiredResult):
         savedResults.append(result)
 
     return plt.hist(savedResults, bins = 100)
+
 
 main()
