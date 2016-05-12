@@ -16,7 +16,6 @@ Stephan 04/04 21.13
 
 # import libary
 import matplotlib.pyplot as plt
-import pygame
 import display
 import display_debug
 import movement
@@ -28,8 +27,8 @@ import sys
 sys.setrecursionlimit(10**6)
 
 #grid variables
-width = 300 
-height = 320   
+WIDTH = 300 
+HEIGTH = 320   
 
 def main():
 
@@ -50,7 +49,7 @@ def showGaussian(houses, scope, desiredResult):
         
         while(placed):
             try:
-                matrix, houselist, water = movement.houses_to_place(houses, width, height)
+                matrix, houselist, water = movement.houses_to_place(houses, WIDTH, HEIGTH)
                 placed = False
             except:
                 placed = True
@@ -71,4 +70,35 @@ def showGaussian(houses, scope, desiredResult):
     return plt.hist(savedResults, bins = 100)
 
 
-main()
+#main()
+
+def run_with_pygame():
+    '''
+    First build a grid and then show every step with pygame.
+    This will run slowely.
+    For debugging purposes.
+    '''
+    # make sure you keep track of matrix witch will be the latest version
+    global matrix
+    
+    # place houses
+    not_placed = True
+    # place 60 houses
+    houses = 3
+
+    while(not_placed):
+        try:
+            matrix, houselist, water = movement.houses_to_place(houses, WIDTH, HEIGTH)
+            not_placed = False
+        except:
+            not_placed = True    
+
+    # calculate initial profit
+    free_space.calculate(matrix, houselist)
+    result = profit.calculate()
+            
+    # save findings
+    state = ss.Saved_State(result, houselist, water)
+    
+    display_debug.build_grid(state, matrix)
+run_with_pygame()    
