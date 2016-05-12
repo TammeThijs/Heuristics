@@ -7,8 +7,8 @@ Created on Thu Apr 21 12:12:14 2016
 
 import movement
 import random
-import vrijstand
-import calculate_profit as profit
+import free_space
+import profit
 
 
 '''

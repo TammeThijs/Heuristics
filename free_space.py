@@ -9,11 +9,11 @@ Created on Thu Apr 21 12:55:38 2016
 '''
 Calculate vrijstand for every house in house_list and add it to the class
 '''
-def calculate_vrijstand(matrix, house_list):
+def calculate(matrix, house_list):
     
-    # for every house calculate vrijstand
+    # for every house calculate freestanding
     for house in house_list:
-        # find its vrijstand
+        # find its freestanding
         meters = find_vrijstand(matrix, house)
 
         house.change_extra_vrijstand(int(meters/2))

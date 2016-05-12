@@ -18,82 +18,57 @@ Stephan 04/04 21.13
 import matplotlib.pyplot as plt
 import pygame
 import display
-import displayDebug
-import houseclass as hc
+import display_debug
 import movement
-import move_house
-import vrijstand
-import calculate_profit as Profit
-import sys
+import free_space
+import profit
 import saved_state as ss
 import numpy as np
-sys.setrecursionlimit(10**6)              
+import sys
+sys.setrecursionlimit(10**6)
 
-def amstelhaege():
-    '''
-    Run all the code.
-    This is the main function.
+#grid variables
+width = 300 
+height = 320   
 
-    '''
-    # make global so it will remember when run is completed.
-    global houselist
-    global profit
-    
-    #define the heigth and width of the matrix
-    width = 300
-    height = 320
-    
-    
-    '''
-    Init
-    '''    
-    
-    # place the houses on the grid.
-    placed = True
+def main():
+
     # 1 for 20, 2 for 40, 3 for 60
     houses_to_place = 3
-    while(placed):
-        try:
-            matrix, houselist = movement.houses_to_place(houses_to_place, width, height)
-            placed = False
-        except:
-            print('error happend')
+
+    showGaussian(houses_to_place, 1000, 2)
+
+    return 
+
+def showGaussian(houses, scope, desiredResult):
+
+    savedResults = []
+
+    for i in range(scope):
+        result = 0        
+        placed = True
+        
+        while(placed):
+            try:
+                matrix, houselist, water = movement.houses_to_place(houses, width, height)
+                placed = False
+            except:
+                placed = True
             
-    
-    vrijstand.calculate_vrijstand(matrix, houselist)
-    profit = Profit.calculate(houselist)
-    
-    state = ss.Saved_State(profit, houselist)
-    # save 
-    
-    return display.build_grid(state, matrix)
-    
+        
+        if(desiredResult == 1):
+            result = free_space.calculate(matrix, houselist)
+            
+        else:
+            free_space.calculate(matrix, houselist)
+            result = profit.calculate(houselist)
+            
+        if(i % 10 == 0):
+            print((i*100)/scope, "%")   
+
+        savedResults.append(result)
+
+    return plt.hist(savedResults, bins = 100)
 
 
-#main()
-
-
-random = []
-for i in range(1):
-    print("begin")
-    print("*****i*************################", i, i,i)
-    random.append(amstelhaege())
-            
-            
-#plt.hist(random, bins = 100)
-#main()
-            
-            
-'''
-# a plot
-    fig = plt.figure()
-    ax = fig.add_subplot(111, autoscale_on=False)
-    plt.imshow(matrix, cmap=plt.cm.ocean)
-    for i in range(len(coordinates)):    
-        ax.annotate(id_list[i], fontsize=20, xy=coordinates[i])
-    plt.xlim(0,320)
-    plt.ylim(0,300)
-    plt.grid()
-    plt.show()
-    plt.close()
-'''
+main()
