@@ -6,11 +6,10 @@ Created on Thu Apr 28 13:15:31 2016
 """
 
 import pygame
-import random_gausian as rg
 import move_house as mh
 import random
-import vrijstand as cv
-import calculate_profit as cp
+import free_space as cv
+import profit as cp
 
 def get_colours():
     

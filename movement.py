@@ -48,11 +48,11 @@ def houses_to_place(houses, width, height):
 Place houses random on the matrix
 '''
 def random_placing(matrix, house, width, height, houseid, iteration = 0):
-    
-    iteration += 1    
-    if (iteration > 1000):
-        #print("More then ", iteration, " iteration. Try again")
-        raise("error iteration")
+#    
+#    iteration += 1    
+#    if (iteration > 1000):
+#        #print("More then ", iteration, " iteration. Try again")
+#        raise("error iteration")
     
     # get random position
     randy = random.randint(0, height-1)
