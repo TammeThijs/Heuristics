@@ -74,11 +74,11 @@ def remove_house(matrix, house):
     
 def move_water(matrix, water, dx, dy, max_atempts = 100):
     # transfer meters to rigth index namly0.5 meters per bukket
-    print("move Water")
+    #print("move Water")
     dx *= 2
     dy *= 2    
-    print("x" + str(water.get_xpos()))
-    print("y" + str(water.get_ypos()))
+    #print("x" + str(water.get_xpos()))
+    #print("y" + str(water.get_ypos()))
     # make copy of matrix for when move is incorrect
     new_matrix = []
     for i in range(len(matrix)):
@@ -101,13 +101,13 @@ def move_water(matrix, water, dx, dy, max_atempts = 100):
         
         # check if you can move, if yes move, if no return old matrix
         if(water_placement_check(new_matrix, water, new_xpos, new_ypos)):
-            print("water can be placed")
+            #print("water can be placed")
             #print("house is moved")
             new_matrix = replace_water(new_matrix, water, new_xpos, new_ypos)
             return True, new_matrix
 #        else:
 #            #print("house could not be moved")
-    print("water canNOT! be placed")
+    #print("water canNOT! be placed")
     return False, matrix
     
 def remove_water(matrix, water):
@@ -142,10 +142,11 @@ def water_placement_check(matrix, water, new_xpos, new_ypos):
     if(matrix[new_xpos + width][new_ypos] > 4):
         return False        
     
-    for x in range(new_xpos, new_xpos + width, 1):
-        for y in range(new_ypos,new_ypos + heigth, 1):
-            if(matrix[x][y] > 4):
-                return False
+
+    for x in range(new_xpos, new_xpos + width, 7):
+        for y in range(new_ypos, new_ypos + heigth, 7):
+            return False
+    
     return True
                 
 def replace_water(matrix, water, new_xpos, new_ypos):
