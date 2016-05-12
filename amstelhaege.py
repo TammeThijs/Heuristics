@@ -32,7 +32,7 @@ height = 320
 def main():
 
     # 1 for 20, 2 for 40, 3 for 60
-    houses_to_place = 3
+    houses_to_place = 1
 
     showGaussian(houses_to_place, 1000, 2)
 
@@ -43,7 +43,7 @@ def showGaussian(houses, scope, desiredResult):
     savedResults = []
 
     for i in range(scope):
-        matrix, houselist = movement.houses_to_place(houses, width, height)
+        matrix, houselist, water = movement.houses_to_place(houses, width, height)
         result = 0        
         
         if(desiredResult == 1):
