@@ -53,7 +53,7 @@ def move_house(matrix, house, dx, dy, max_atempts = 100):
 #            #print("house could not be moved")
     return False, matrix
 
-def move_bulk(matrix, houselist, dx, dy , bulk, max_attempts = 200):
+def move_bulk(matrix, houselist, dx, dy , bulk, max_attempts = 5000):
     # transfer meters to rigth index namly0.5 meters per bukket
     dx *= 2
     dy *= 2  
@@ -69,6 +69,7 @@ def move_bulk(matrix, houselist, dx, dy , bulk, max_attempts = 200):
 
     # remove bulk houses
     houses = random.sample(range(0,len(houselist) -1), bulk)
+  #  print("houses to remove " + str(houses))
     for x in houses:
         new_matrix = remove_house(new_matrix, houselist[x])
     
@@ -81,6 +82,7 @@ def move_bulk(matrix, houselist, dx, dy , bulk, max_attempts = 200):
         placed, new_matrix = try_to_place(matrix, new_matrix, house, max_attempts, dx, dy, house_maison)
         
         if(placed == False):
+            #print("failed")
             return False, matrix
     return True, new_matrix
         
@@ -121,7 +123,7 @@ def remove_house(matrix, house):
                 matrix[x][y] = 0       
     return matrix
     
-def move_water(matrix, water, dx, dy, max_atempts = 100):
+def move_water(matrix, water, dx, dy, max_atempts = 1000):
     # transfer meters to rigth index namly0.5 meters per bukket
     #print("move Water")
     dx *= 2
