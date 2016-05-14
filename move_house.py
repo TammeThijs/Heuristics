@@ -156,7 +156,7 @@ def move_water(matrix, water, dx, dy, max_atempts = 100):
             return True, new_matrix
 #        else:
 #            #print("house could not be moved")
-    print("water canNOT! be placed")
+#    print("water canNOT! be placed")
     return False, matrix
     
 def remove_water(matrix, water):
