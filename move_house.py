@@ -53,6 +53,57 @@ def move_house(matrix, house, dx, dy, max_atempts = 100):
 #            #print("house could not be moved")
     return False, matrix
 
+def move_bulk(matrix, houselist, dx, dy , bulk, max_attempts = 5000):
+    # transfer meters to rigth index namly0.5 meters per bukket
+    dx *= 2
+    dy *= 2  
+
+    # make copy of matrix for when move is incorrect
+    new_matrix = []
+    for i in range(len(matrix)):
+        temp_list = []
+        for j in range(len(matrix[0])):
+            temp_list.append(matrix[i][j])
+            
+        new_matrix.append(temp_list)
+
+    # remove bulk houses
+    houses = random.sample(range(0,len(houselist) -1), bulk)
+  #  print("houses to remove " + str(houses))
+    for x in houses:
+        new_matrix = remove_house(new_matrix, houselist[x])
+    
+    for x in houses:
+        house = houselist[x]
+        if(house.get_house_type() == "maison"):
+            house_maison = True
+        else:
+            house_maison = False
+        placed, new_matrix = try_to_place(matrix, new_matrix, house, max_attempts, dx, dy, house_maison)
+        
+        if(placed == False):
+            #print("failed")
+            return False, matrix
+    return True, new_matrix
+        
+def try_to_place(matrix,new_matrix, house, max_attemps, dx, dy, house_maison):
+    for i in range(max_attemps):
+        # get pos new position
+        xpos = house.get_xpos()
+        ypos = house.get_ypos()
+        new_xpos = xpos + random.randint(-dx,dx)
+        new_ypos = ypos + random.randint(-dy,dy)
+        
+        # check if you can move, if yes move, if no return old matrix
+        if(movement.placement_check(house, new_matrix, new_xpos, new_ypos, move = True, maison = house_maison) == True):
+            #print("house is moved")
+            new_matrix = movement.place_house(house, new_matrix, new_xpos, new_ypos)
+            return True, new_matrix[0]
+#        else:
+#            #print("house could not be moved")
+    return False, matrix
+
+   
 '''
 Remove the house
 Decrease manditory free space by 1
@@ -72,7 +123,7 @@ def remove_house(matrix, house):
                 matrix[x][y] = 0       
     return matrix
     
-def move_water(matrix, water, dx, dy, max_atempts = 100):
+def move_water(matrix, water, dx, dy, max_atempts = 1000):
     # transfer meters to rigth index namly0.5 meters per bukket
     #print("move Water")
     dx *= 2
@@ -107,7 +158,7 @@ def move_water(matrix, water, dx, dy, max_atempts = 100):
             return True, new_matrix
 #        else:
 #            #print("house could not be moved")
-    #print("water canNOT! be placed")
+#    print("water canNOT! be placed")
     return False, matrix
     
 def remove_water(matrix, water):

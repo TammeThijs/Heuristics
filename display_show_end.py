@@ -68,51 +68,10 @@ def build_grid(state, matrix):
             if event.type == pygame.QUIT:
                 running = False
                 
-        # copy's      
-        houselist = state.get_houselist()
-        water = state.get_water()
-        
-        # Move house
-        water_or_house = 0.9
-        far_or_short = 0.9
-        if(water_or_house > random.random()):
-            house = random.randint(0, len(houselist) - 1)
-            if(far_or_short > random.random()):
-                moved, new_matrix = mh.move_house(matrix, houselist[house], 10, 10)
-            else:
-                times = 0
-                loop = True
-                while(loop and times < 10):
-                    print("far move       " + str(times) )
-                    times += 1
-                    moved, new_matrix = mh.move_bulk(matrix, houselist, 500, 500 , 1, max_attempts = 10000)
-                    loop = moved
-            if(moved):
-                print("HOLYMOTHAFUCKA:")
-            else:
-                print("not worked")
-        else:
-            water_pool = random.randint(0, len(water.get_pools()) - 1)
-            moved, new_matrix = mh.move_water(matrix, water.get_pool(water_pool), 20, 20)
-        
-        if(moved):
-            cv.calculate_vrijstand(new_matrix, houselist)
-            new_profit = cp.calculate(houselist)
-            if(new_profit >= state.get_total_value()):
-                print("Acc")
-                print("profit was" + str(new_profit))
-                state.set_houselist(houselist)
-                state.set_water(water)
-                state.set_total_value(new_profit)
-                matrix =  new_matrix
-                
-            else:
-                print("DECLINED!")
-                print("profit was" + str(new_profit))
         # draw        
         for row in range(300):
             for column in range(320):
-                pygame.draw.rect(screen, colours[new_matrix[row][column]], 
+                pygame.draw.rect(screen, colours[matrix[row][column]], 
                                  (column * tilesize, row * tilesize, 10, 10))
         
         caption = "Amstelhaege. Profit: " + str(state.get_total_value())

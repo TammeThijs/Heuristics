@@ -9,7 +9,7 @@ Created on Thu Apr 21 12:55:38 2016
 '''
 Calculate vrijstand for every house in house_list and add it to the class
 '''
-def calculate(matrix, house_list):
+def calculate_vrijstand(matrix, house_list):
     
     # for every house calculate freestanding
     for house in house_list:
