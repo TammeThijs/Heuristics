@@ -98,6 +98,36 @@ def place_water(matrix):
         water.new_pool(water_pool)        
     return matrix, water
 
+def place_water_rectangle(matrix):
+    water = Water()
+    water_width = 40
+    water_heigth = 150
+    
+    for i in range(4):
+        search = True
+        while(search):
+            search = False
+            xstart = random.randint(0, len(matrix) - water_width - 1)
+            ystart = random.randint(0, len(matrix[0]) - water_heigth - 1)
+            
+            if(matrix[xstart][ystart] != 0):
+                search = True
+            if(matrix[xstart][ystart + water_heigth] != 0):
+                search = True
+            if(matrix[xstart + water_width][ystart] != 0):
+                search = True
+            if(matrix[xstart + water_width][ystart + water_heigth] != 0):
+                search = True
+        
+        water_pool = Water_pool(water_width, water_heigth, xstart, ystart)
+       
+        # place water        
+        for x in range(water_width):
+            for y in range(water_heigth):
+                matrix[x+xstart][y+ystart] = 5
+        water.new_pool(water_pool)        
+    return matrix, water
+
 
 '''
 place water by finding the larges free space and place it there.

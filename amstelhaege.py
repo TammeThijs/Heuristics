@@ -139,7 +139,7 @@ def hill_climber(runs):
     not_placed = True
     
     # place 60 houses
-    houses = 3
+    houses = 1
     # start placing
     while(not_placed):
         try:
@@ -297,11 +297,12 @@ def hill_climber_vrijstand(runs):
     plt.imshow(matrix)
     dse.build_grid(state, matrix)
     
-hill_climber_vrijstand(30000)
+hill_climber(30000)
+#%%
 
 plt.figure()
 plt.plot(found_profit_per_run)
-plt.title("vrijstand per run. Max: " + str(state.get_total_value()))
+plt.title("vrijstand per run. Max: " + str(found_profit_per_run[-1]))
 plt.xlabel("runs")
 plt.ylabel("profit")
 plt.show()

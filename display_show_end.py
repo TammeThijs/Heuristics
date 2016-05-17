@@ -55,7 +55,7 @@ def init_pygame(width, heigth):
     
     return screen
     
-def build_grid(state, matrix):
+def build_grid(matrix):
     
     colours = get_colours()    
     screen = init_pygame(640, 600)
@@ -74,7 +74,7 @@ def build_grid(state, matrix):
                 pygame.draw.rect(screen, colours[matrix[row][column]], 
                                  (column * tilesize, row * tilesize, 10, 10))
         
-        caption = "Amstelhaege. Profit: " + str(state.get_total_value())
+        caption = "Amstelhaege"
         pygame.display.set_caption(caption)
         pygame.display.flip()
                
