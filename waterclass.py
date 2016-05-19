@@ -91,11 +91,13 @@ def place_water(matrix):
         
         if(i < count-1):
             max_width = math.floor(math.sqrt(water.get_needed()))
-            width = random.randint(7, max_width)
+            width = random.randint(14, max_width)
             heigth = math.ceil(width/(random.randint(1,4)))
             surface = width*heigth
         else:
             width = math.ceil(math.sqrt(water.get_needed()))
+            if(width < 14):
+                width = 14
             heigth = width
             surface = water.get_needed()
             
@@ -115,12 +117,29 @@ def place_water(matrix):
                 search = True
             if(matrix[xstart + width][ystart + heigth] != 0):
                 search = True
+                
+            y = ystart
+            for x in range(xstart, xstart + width,14):
+                if(matrix[x][y] > 9):           
+                    return False
+            y = ystart + heigth
+            for x in range(xstart, xstart + width, 14):
+                if(matrix[x][y] > 9):           
+                    return False        
+            x = xstart       
+            for y in range(ystart, ystart + heigth, 14):
+                if(matrix[x][y] > 9):           
+                    return False      
+            x = xstart + width      
+            for y in range(ystart, ystart + heigth, 14):
+                if(matrix[x][y] > 9):           
+                    return False  
         
         water_pool = Water_pool(width, heigth, xstart, ystart)
         # place water        
         for x in range(width):
             for y in range(heigth):
-                matrix[x+xstart][y+ystart] = 5
+                matrix[x+xstart][y+ystart] += 5
         water.new_pool(water_pool)        
     return matrix, water
 

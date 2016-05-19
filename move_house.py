@@ -133,7 +133,7 @@ def move_water(matrix, water, dx, dy, max_atempts = 1000):
     '''
     This function will move water. It will try max_atempts times, default 1000
     '''
-    
+    print("Move water")
 
     # transfer meters to rigth index namely0.5 meters per bukket
     dx *= 2
@@ -212,11 +212,27 @@ def water_placement_check(matrix, water, new_xpos, new_ypos):
         return False        
     
     print("rest")
-    for x in range(new_xpos, new_xpos + width, 7):
-        for y in range(new_ypos, new_ypos + heigth, 7):
-            if(matrix[x][y] > 9):           
-                return False
+    y = new_ypos
+    for x in range(new_xpos, new_xpos + width,14):
+        if(matrix[x][y] > 9):           
+            return False
+    y = new_ypos + heigth
+    for x in range(new_xpos, new_xpos + width, 14):
+        if(matrix[x][y] > 9):           
+            return False        
+    x = new_xpos       
+    for y in range(new_ypos, new_ypos + heigth, 14):
+        if(matrix[x][y] > 9):           
+            return False      
+    x = new_xpos + width      
+    for y in range(new_ypos, new_ypos + heigth, 14):
+        if(matrix[x][y] > 9):           
+            return False             
+            
     print("treu")
+    
+    
+    
     return True
                 
 def replace_water(matrix, water, new_xpos, new_ypos):
