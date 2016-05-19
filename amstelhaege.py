@@ -419,9 +419,25 @@ def simulated_annealing():
     plt.imshow(first_matrix) 
     plt.figure()
     plt.imshow(matrix)
-    dse.build_grid(matrix)
+    #dse.build_grid(matrix)
 #simulated_annealing(20000)
 #hill_climber(20000, 1)
+    
+    
+storage = []
+matrix_storage = []
+endrun_storage = []
+startrun_storage = []
+time_storage = []
+profitpercycle_storage = []
+for i in range(100):
+    simulated_annealing()
+    storage.append(final_profit)
+    matrix_storage.append(matrix)
+    endrun_storage.append(end_run)
+    startrun_storage.append(start_run)
+    time_storage.append(end_run - start_run)
+    profitpercycle_storage.append(found_profit_per_run)
 #%%
 
 plt.figure()
