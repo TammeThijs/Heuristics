@@ -41,7 +41,7 @@ class Water():
     def __init__(self):
         self.max_pools = random.randint(1,4)
         self.ratio = 4
-        self.area_needed = 4800
+        self.area_needed = 19200
         self.area_filled = 0
         self.pools = []
         
@@ -81,13 +81,17 @@ place water by finding the larges free space and place it there.
 def place_water(matrix):
     water = Water()
     count = water.get_max_pools()
+    print(str(count))
     
-    for i in range(count):
+ 
+    for i in range(count): 
+        print(water.get_filled())
+        print(water.get_needed())
+        print(" ")        
         
-        
-        if(i > 1):
-            max_width = math.floor(math.sqrt(water.get_needed())) 
-            width = random.randint(1, max_width)
+        if(i < count-1):
+            max_width = math.floor(math.sqrt(water.get_needed()))
+            width = random.randint(7, max_width)
             heigth = math.ceil(width/(random.randint(1,4)))
             surface = width*heigth
         else:
@@ -112,7 +116,7 @@ def place_water(matrix):
             if(matrix[xstart + width][ystart + heigth] != 0):
                 search = True
         
-        water_pool = Water_pool(width, width, xstart, ystart)
+        water_pool = Water_pool(width, heigth, xstart, ystart)
         # place water        
         for x in range(width):
             for y in range(heigth):

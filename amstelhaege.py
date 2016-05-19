@@ -17,6 +17,7 @@ Stephan 04/04 21.13
 # import libary
 import matplotlib.pyplot as plt
 import display_debug
+import display
 import movement
 import free_space
 import profit
@@ -33,9 +34,14 @@ HEIGTH = 320
 def main():
 
     # 1 for 20, 2 for 40, 3 for 60
-    houses_to_place = 3
+    houses_to_place = 1
+    
+    matrix, houselist, water = movement.houses_to_place(houses_to_place, WIDTH, HEIGTH)
+    state = ss.Saved_State(12312312312, houselist, water)
+    
+    display.build_grid(state, matrix)
 
-    showGaussian(houses_to_place, 1000, 2)
+#    showGaussian(houses_to_place, 1000, 2)
 
     return 
 
@@ -70,7 +76,7 @@ def showGaussian(houses, scope, desiredResult):
     return plt.hist(savedResults, bins = 100)
 
 
-#main()
+main()
 
 def run_with_pygame():
     '''
@@ -410,20 +416,20 @@ def simulated_annealing(runs):
     plt.imshow(matrix)
     dse.build_grid(matrix)
 #simulated_annealing(20000)
-hill_climber(20000, 1)
+#hill_climber(20000, 1)
 #%%
-
-plt.figure()
-plt.plot(found_profit_per_run)
-plt.title("vrijstand per run. Max: " + str(found_profit_per_run[-1]))
-plt.xlabel("runs")
-plt.ylabel("profit")
-plt.show()
-
-plt.figure()
-plt.plot(time_needed)
-plt.title("Time needed: " + str(end_run - start_run))
-plt.xlabel("runs")
-plt.ylabel("time")
-plt.show()
+#
+#plt.figure()
+#plt.plot(found_profit_per_run)
+#plt.title("vrijstand per run. Max: " + str(found_profit_per_run[-1]))
+#plt.xlabel("runs")
+#plt.ylabel("profit")
+#plt.show()
+#
+#plt.figure()
+#plt.plot(time_needed)
+#plt.title("Time needed: " + str(end_run - start_run))
+#plt.xlabel("runs")
+#plt.ylabel("time")
+#plt.show()
 

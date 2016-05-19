@@ -134,6 +134,7 @@ def move_water(matrix, water, dx, dy, max_atempts = 1000):
     This function will move water. It will try max_atempts times, default 1000
     '''
     
+
     # transfer meters to rigth index namely0.5 meters per bukket
     dx *= 2
     dy *= 2    
@@ -158,9 +159,13 @@ def move_water(matrix, water, dx, dy, max_atempts = 1000):
         new_xpos = xpos + random.randint(-dx,dx)
         new_ypos = ypos + random.randint(-dy,dy)
         
+        print("old"  + str(xpos) +" " +  str(ypos))
+        print("new"  + str(new_xpos) +" " +  str(new_ypos))
+        
         # check if you can move, if yes move, if no return old matrix
         if(water_placement_check(new_matrix, water, new_xpos, new_ypos)):
             new_matrix = replace_water(new_matrix, water, new_xpos, new_ypos)
+            print("TRUEEE" + str(new_xpos) + str(new_ypos))
             return True, new_matrix
             
     # failed to move water max_atemps times            
@@ -172,7 +177,7 @@ def remove_water(matrix, water):
     '''
     xpos = water.get_xpos()
     ypos = water.get_ypos()
-    
+ 
     # remove water          
     for x in range(xpos, xpos + water.get_width()):
         for y in range(ypos, ypos + water.get_heigth()):
@@ -186,6 +191,8 @@ def water_placement_check(matrix, water, new_xpos, new_ypos):
     '''
     width = water.get_width()
     heigth = water.get_heigth()
+    
+    print("CHECKLENGT" + str(width) + " " +str(heigth))
 
     # check boundry
     if(new_xpos + width >= len(matrix) or new_xpos < 0):
@@ -193,6 +200,7 @@ def water_placement_check(matrix, water, new_xpos, new_ypos):
     if(new_ypos + heigth >= len(matrix[0]) or new_ypos < 0):
         return False
         
+    print("Corners")
     # corners
     if(matrix[new_xpos + width][new_ypos] > 4):
         return False
@@ -203,11 +211,12 @@ def water_placement_check(matrix, water, new_xpos, new_ypos):
     if(matrix[new_xpos + width][new_ypos] > 4):
         return False        
     
-
+    print("rest")
     for x in range(new_xpos, new_xpos + width, 7):
         for y in range(new_ypos, new_ypos + heigth, 7):
-            return False
-    
+            if(matrix[x][y] > 9):           
+                return False
+    print("treu")
     return True
                 
 def replace_water(matrix, water, new_xpos, new_ypos):
@@ -222,4 +231,6 @@ def replace_water(matrix, water, new_xpos, new_ypos):
         for y in range(new_ypos, new_ypos + water.get_heigth()):
             matrix[x][y] += 5
             
+    print("newpoa")
+    print(new_xpos, new_ypos)            
     return matrix
