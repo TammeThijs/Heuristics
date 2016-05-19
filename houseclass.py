@@ -4,17 +4,14 @@ Spyder Editor
 
 Heuristieken: AmstelHaege
 
-Autors: 
-Stephan Kok 10627987, 
-Stijn ... ...,
-... ... ...
-
-
 Last modified:
 Stephan 04/04 21.13
 """
 
 class House():
+    '''
+    The main house class.
+    '''
     
     def __init__(self):
         self.posx = False
@@ -62,13 +59,10 @@ class House():
     def change_id(self, new_id):
         self.houseid =  new_id
 
-
-
-
-
-
-
 class Eengezinswoning(House):
+    '''
+    Child of House class.
+    '''
     
     def __init__(self):
         super(self.__class__, self).__init__()
@@ -92,7 +86,9 @@ class Eengezinswoning(House):
 
 
 class Bungalow(House):
-    
+    '''
+    Child of House class.
+    '''    
     def __init__(self):
         super(self.__class__, self).__init__()
         self.house_type = "bungalow"
@@ -117,7 +113,9 @@ class Bungalow(House):
         return new
         
 class Maison(House):
-    
+    '''
+    Child of House class.
+    '''    
     def __init__(self):
         super(self.__class__, self).__init__()
         self.house_type = "maison"

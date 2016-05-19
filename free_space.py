@@ -6,29 +6,30 @@ Created on Thu Apr 21 12:55:38 2016
 """
 
 
-def calculate_vrijstand(matrix, house_list):  
+def calculate_new_vrijstand_to_class(matrix, house_list):  
     '''
     Calculate vrijstand for every house in house_list and add it to the class
     '''
-    # for every house calculate freestanding
+    # for every house calculate free space
     for house in house_list:
         meters = find_vrijstand(matrix, house)
-
-        house.change_extra_vrijstand(int(meters/2))
+        
+        # Delete extra half meter
+        house.change_extra_vrijstand(int(meters / 2))
         
     # return the list
     return house_list
     
-    
-'''
-Calculate the vrijstand of an house.
-You start at the minimum reqruired vrijstand. The smallest house is 8 meters,
-so you can search in a radius of 7 meters (14 steps) to check if there is a 
-house it is impossible for within those 7 meters to be a house. So you can 
-check the next 7 meters. 
-If there is a house you binary search till you found it.
-'''    
+ 
 def find_vrijstand(matrix, house, steps = 14, back = False, prev = 0, taken = None, free = 0):
+    '''
+    Calculate the vrijstand of an house.
+    You start at the minimum reqruired vrijstand. The smallest house is 8 meters,
+    so you can search in a radius of 7 meters (14 steps) to check if there is a 
+    house it is impossible for within those 7 meters to be a house. So you can 
+    check the next 7 meters. 
+    If there is a house you binary search till you found it.
+    '''   
     
     # When a house have been found do binary search
     if(back == False):
@@ -55,13 +56,13 @@ def find_vrijstand(matrix, house, steps = 14, back = False, prev = 0, taken = No
                 newsteps = int(free + (taken - steps) / 2)
                 return find_vrijstand(matrix, house, steps = newsteps, back = True, taken = steps, free = free)
     
-'''
-Check the layer of a house
-
-you have too check every 7 meters and every corner.
-
-'''
 def check_layer(matrix, house, layer):
+    '''
+    Check the layer of a house
+    
+    you have too check every 7 meters and every corner.
+    '''
+    
     # intialize
     xpos = house.get_xpos()
     ypos = house.get_ypos()

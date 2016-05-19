@@ -16,7 +16,6 @@ Stephan 04/04 21.13
 
 # import libary
 import matplotlib.pyplot as plt
-import display
 import display_debug
 import movement
 import free_space
@@ -105,7 +104,7 @@ def run_with_pygame():
     display_debug.build_grid(state, matrix)
 #run_with_pygame()    
 
-def hill_climber(runs):
+def hill_climber(runs, houses):
     '''
     Run with hill climber
     Finds max profit
@@ -113,7 +112,6 @@ def hill_climber(runs):
     # imports
     import move_house as mh
     import random
-    import free_space as cv
     import profit as cp
     import display_show_end as dse
     import time
@@ -138,8 +136,6 @@ def hill_climber(runs):
     # place houses
     not_placed = True
     
-    # place 60 houses
-    houses = 1
     # start placing
     while(not_placed):
         try:
@@ -153,7 +149,7 @@ def hill_climber(runs):
     first_matrix = np.copy(matrix)
 
     # calculate initial profit
-    free_space.calculate_vrijstand(matrix, houselist)
+    free_space.calculate_new_vrijstand_to_class(matrix, houselist)
     result = profit.calculate(houselist)
     
     found_profit_per_run.append(result)
@@ -179,7 +175,7 @@ def hill_climber(runs):
           
         
         if(moved):
-            cv.calculate_vrijstand(new_matrix, houselist)
+            free_space.calculate_new_vrijstand_to_class(new_matrix, houselist)
             new_profit = cp.calculate(houselist)
             if(new_profit >= state.get_total_value()):
                 state.set_houselist(houselist)
@@ -201,6 +197,8 @@ def hill_climber(runs):
     plt.imshow(matrix)
     dse.build_grid(matrix)
     
+    
+    
 def hill_climber_vrijstand(runs):
     '''
     Run with hill climber
@@ -209,7 +207,6 @@ def hill_climber_vrijstand(runs):
     # imports
     import move_house as mh
     import random
-    import free_space as cv
     import profit as cp
     import display_show_end as dse
     import time
@@ -249,7 +246,7 @@ def hill_climber_vrijstand(runs):
     first_matrix = np.copy(matrix)
 
     # calculate initial profit
-    free_space.calculate_vrijstand(matrix, houselist)
+    free_space.calculate_new_vrijstand_to_class(matrix, houselist)
     result = profit.calculate_vrijstand(houselist)
     
     found_profit_per_run.append(result)
@@ -275,7 +272,7 @@ def hill_climber_vrijstand(runs):
           
         
         if(moved):
-            cv.calculate_vrijstand(new_matrix, houselist)
+            free_space.calculate_vrijstand(new_matrix, houselist)
             new_profit = cp.calculate_vrijstand(houselist)
             if(new_profit >= state.get_total_value()):
                 state.set_houselist(houselist)
@@ -307,7 +304,6 @@ def simulated_annealing(runs):
     # imports
     import move_house as mh
     import random
-    import free_space as cv
     import profit as cp
     import display_show_end as dse
     import time
@@ -327,7 +323,7 @@ def simulated_annealing(runs):
     
     found_profit_per_run = []
     time_needed = []
-    water_or_house = 1.0
+    water_or_house = 0.9
     
     # place houses
     not_placed = True
@@ -347,7 +343,7 @@ def simulated_annealing(runs):
     first_matrix = np.copy(matrix)
 
     # calculate initial profit
-    free_space.calculate_vrijstand(matrix, houselist)
+    free_space.calculate_new_vrijstand_to_class(matrix, houselist)
     result = profit.calculate_vrijstand(houselist)
     
     found_profit_per_run.append(result)
@@ -358,7 +354,7 @@ def simulated_annealing(runs):
     
     
     # Start Temp Simulated Annealing
-    temperature = 10*10**6
+    temperature = 1*10**6
     start_temp = temperature
     count = 0.0
     
@@ -368,7 +364,7 @@ def simulated_annealing(runs):
     while(temperature > 1):
         if(count % 100 == 0):
             print(count, temperature)
-        #print("              run " + str(i))
+            
         # make a copy of houselist              
         houselist = state.get_houselist()
         water = state.get_water()
@@ -382,29 +378,21 @@ def simulated_annealing(runs):
           
         
         if(moved):
-            cv.calculate_vrijstand(new_matrix, houselist)
+            free_space.calculate_new_vrijstand_to_class(new_matrix, houselist)
             new_profit = cp.calculate(houselist)
             if(new_profit >= state.get_total_value()):
-                #print("Accepted !!")
-#                print("profit was" + str(new_profit))
                 state.set_houselist(houselist)
                 state.set_total_value(new_profit)
                 state.set_water(water)
                 matrix =  new_matrix
             elif((state.get_total_value() - new_profit) / temperature  < random.random()):
-                #print('*** Declined yet accepted! ****************************')
-                #print((state.get_total_value() - new_profit) / temperature )
                 state.set_houselist(houselist)
                 state.set_total_value(new_profit)
                 state.set_water(water)
                 matrix =  new_matrix
-            #else:
-                #print("#### DECLINED!")
-                #print((state.get_total_value() - new_profit) / temperature )
-#                print("profit was" + str(new_profit))
+
             count += 1
             temperature = start_temp * ((0.999) ** abs(count))
-            #print("temp:                    " + str(temperature))
             
             
         found_profit_per_run.append(state.get_total_value())
@@ -421,7 +409,8 @@ def simulated_annealing(runs):
     plt.figure()
     plt.imshow(matrix)
     dse.build_grid(matrix)
-simulated_annealing(20000000)
+#simulated_annealing(20000)
+hill_climber(20000, 1)
 #%%
 
 plt.figure()
