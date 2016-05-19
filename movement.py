@@ -19,7 +19,7 @@ def houses_to_place(houses, width, height):
     # make a matrix for if pixel is taken.
     matrix = [[0 for i in range(height)] for j in range(width)] 
     
-    matrix, water = wc.place_water_rectangle(matrix)    
+    matrix, water = wc.place_water(matrix)    
     
     houselist = []
     
