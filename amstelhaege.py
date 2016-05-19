@@ -199,7 +199,7 @@ def hill_climber(runs):
     plt.imshow(first_matrix) 
     plt.figure()
     plt.imshow(matrix)
-    dse.build_grid(state, matrix)
+    dse.build_grid(matrix)
     
 def hill_climber_vrijstand(runs):
     '''
@@ -295,9 +295,133 @@ def hill_climber_vrijstand(runs):
     plt.imshow(first_matrix) 
     plt.figure()
     plt.imshow(matrix)
-    dse.build_grid(state, matrix)
+    dse.build_grid(matrix)
     
-hill_climber(30000)
+#hill_climber(30000)
+#%%
+def simulated_annealing(runs):
+    '''
+    Run with hill climber
+    Finds max vrijstand
+    '''
+    # imports
+    import move_house as mh
+    import random
+    import free_space as cv
+    import profit as cp
+    import display_show_end as dse
+    import time
+    
+    
+    global INFO
+    INFO = "Hill climber. "
+    
+    # save last to show with pygame
+    global matrix
+    global state
+    global water_or_house
+    global found_profit_per_run
+    global time_needed
+    global start_run
+    global end_run
+    
+    found_profit_per_run = []
+    time_needed = []
+    water_or_house = 1.0
+    
+    # place houses
+    not_placed = True
+    
+    # place 60 houses
+    houses = 3
+    # start placing
+    while(not_placed):
+        try:
+            matrix, houselist, water = movement.houses_to_place(houses, WIDTH, HEIGTH)
+            not_placed = False
+        except:
+            not_placed = True
+    
+    global first_matrix
+    
+    first_matrix = np.copy(matrix)
+
+    # calculate initial profit
+    free_space.calculate_vrijstand(matrix, houselist)
+    result = profit.calculate_vrijstand(houselist)
+    
+    found_profit_per_run.append(result)
+            
+    # save findings
+    state = ss.Saved_State(result, houselist, water)
+    
+    
+    
+    # Start Temp Simulated Annealing
+    temperature = 10*10**6
+    start_temp = temperature
+    count = 0.0
+    
+    # do the simulated annealing
+    start_run = time.time()
+    #for i in range(runs):
+    while(temperature > 1):
+        if(count % 100 == 0):
+            print(count, temperature)
+        #print("              run " + str(i))
+        # make a copy of houselist              
+        houselist = state.get_houselist()
+        water = state.get_water()
+        
+        if(water_or_house > random.random()):
+            house = random.randint(0, len(houselist) - 1)
+            moved, new_matrix = mh.move_house(matrix, houselist[house], 100, 100)
+        else:
+            water_pool = random.randint(0, len(water.get_pools()) - 1)
+            moved, new_matrix = mh.move_water(matrix, water.get_pool(water_pool), 10, 10)
+          
+        
+        if(moved):
+            cv.calculate_vrijstand(new_matrix, houselist)
+            new_profit = cp.calculate(houselist)
+            if(new_profit >= state.get_total_value()):
+                #print("Accepted !!")
+#                print("profit was" + str(new_profit))
+                state.set_houselist(houselist)
+                state.set_total_value(new_profit)
+                state.set_water(water)
+                matrix =  new_matrix
+            elif((state.get_total_value() - new_profit) / temperature  < random.random()):
+                #print('*** Declined yet accepted! ****************************')
+                #print((state.get_total_value() - new_profit) / temperature )
+                state.set_houselist(houselist)
+                state.set_total_value(new_profit)
+                state.set_water(water)
+                matrix =  new_matrix
+            #else:
+                #print("#### DECLINED!")
+                #print((state.get_total_value() - new_profit) / temperature )
+#                print("profit was" + str(new_profit))
+            count += 1
+            temperature = start_temp * ((0.999) ** abs(count))
+            #print("temp:                    " + str(temperature))
+            
+            
+        found_profit_per_run.append(state.get_total_value())
+        time_needed.append(time.time() - start_run)
+   
+               
+    global final_profit
+    final_profit = state.get_total_value()
+    
+    
+    end_run = time.time()  
+    plt.figure()         
+    plt.imshow(first_matrix) 
+    plt.figure()
+    plt.imshow(matrix)
+    dse.build_grid(matrix)
+simulated_annealing(20000000)
 #%%
 
 plt.figure()

@@ -6,6 +6,9 @@ Created on Tue May  3 14:31:10 2016
 """
 
 class Saved_State():
+    '''
+    Used to save the the best state of the matrix.
+    '''
     
     def __init__(self, profit, houselist, water):
         self.total_value = profit
@@ -28,14 +31,3 @@ class Saved_State():
         self.houselist = houselist
     def set_water(self, water):
         self.water = water
-        '''
-    def get_matrix(self):
-        return self.matrix
-    def get_houselist(self):
-        return self.houselist
-    def get_total_value(self):
-        return self.total_value
-    def get_total_freespace(self):
-        return self.total_freespace
-        '''
-

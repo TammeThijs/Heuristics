@@ -6,6 +6,10 @@ Created on Tue Apr 19 13:04:16 2016
 """
 
 def calculate(house_list):
+    '''
+    Calculate the total profit from the current vrijstand set in the 
+    houseclass
+    '''
     money = 0
     for house in house_list:
         cost = house.get_cost()
@@ -13,19 +17,17 @@ def calculate(house_list):
         extra_vrijstand = house.get_extra_vrijstand()
         total = cost + float(cost)*gain*extra_vrijstand
         money += total
-        #print("opbrengst van: ", house.get_id(), " is: ", total)
-        
-    #print("current total profit: ", money)
     return money
 
 def calculate_vrijstand(house_list):
+    '''
+    Calculate the total vrijstand from the current vrijstand set in the 
+    houseclass
+    '''
     totale_vrijstand = 0
     for house in house_list:
         vrijstand = house.get_vrijstand()
         extra_vrijstand = house.get_extra_vrijstand()
         total = vrijstand + extra_vrijstand
         totale_vrijstand += total
-        #print("opbrengst van: ", house.get_id(), " is: ", total)
-        
-    #print("current total profit: ", money)
     return totale_vrijstand
