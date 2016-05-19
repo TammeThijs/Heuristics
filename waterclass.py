@@ -81,13 +81,9 @@ place water by finding the larges free space and place it there.
 def place_water(matrix):
     water = Water()
     count = water.get_max_pools()
-    print(str(count))
     
  
-    for i in range(count): 
-        print(water.get_filled())
-        print(water.get_needed())
-        print(" ")        
+    for i in range(count):  
         
         if(i < count-1):
             max_width = math.floor(math.sqrt(water.get_needed()))

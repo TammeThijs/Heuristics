@@ -76,7 +76,7 @@ def showGaussian(houses, scope, desiredResult):
     return plt.hist(savedResults, bins = 100)
 
 
-main()
+#main()
 
 def run_with_pygame():
     '''
@@ -188,9 +188,11 @@ def hill_climber(runs, houses):
                 state.set_total_value(new_profit)
                 state.set_water(water)
                 matrix =  new_matrix
-        found_profit_per_run.append(state.get_total_value())
-        time_needed.append(time.time() - start_run)
-               
+            found_profit_per_run.append(state.get_total_value())
+            time_needed.append(time.time() - start_run)
+        else:
+            # a step is a succeseeded move if no move try again
+            i -= 1
                
     global final_profit
     final_profit = state.get_total_value()
@@ -285,9 +287,12 @@ def hill_climber_vrijstand(runs):
                 state.set_total_value(new_profit)
                 state.set_water(water)
                 matrix =  new_matrix
-        found_profit_per_run.append(state.get_total_value())
-        time_needed.append(time.time() - start_run)
-               
+                
+            found_profit_per_run.append(state.get_total_value())
+            time_needed.append(time.time() - start_run)
+        else:
+            # a step is a succeseeded move if no move try again
+            i -= 1
                
     global final_profit
     final_profit = state.get_total_value()
@@ -300,9 +305,9 @@ def hill_climber_vrijstand(runs):
     plt.imshow(matrix)
     dse.build_grid(matrix)
     
-#hill_climber(30000)
+hill_climber(20000, 1)
 #%%
-def simulated_annealing(runs):
+def simulated_annealing():
     '''
     Run with hill climber
     Finds max vrijstand
@@ -401,8 +406,8 @@ def simulated_annealing(runs):
             temperature = start_temp * ((0.999) ** abs(count))
             
             
-        found_profit_per_run.append(state.get_total_value())
-        time_needed.append(time.time() - start_run)
+            found_profit_per_run.append(state.get_total_value())
+            time_needed.append(time.time() - start_run)
    
                
     global final_profit
@@ -418,18 +423,18 @@ def simulated_annealing(runs):
 #simulated_annealing(20000)
 #hill_climber(20000, 1)
 #%%
-#
-#plt.figure()
-#plt.plot(found_profit_per_run)
-#plt.title("vrijstand per run. Max: " + str(found_profit_per_run[-1]))
-#plt.xlabel("runs")
-#plt.ylabel("profit")
-#plt.show()
-#
-#plt.figure()
-#plt.plot(time_needed)
-#plt.title("Time needed: " + str(end_run - start_run))
-#plt.xlabel("runs")
-#plt.ylabel("time")
-#plt.show()
+
+plt.figure()
+plt.plot(found_profit_per_run)
+plt.title("vrijstand per run. Max: " + str(found_profit_per_run[-1]))
+plt.xlabel("runs")
+plt.ylabel("profit")
+plt.show()
+
+plt.figure()
+plt.plot(time_needed)
+plt.title("Time needed: " + str(end_run - start_run))
+plt.xlabel("runs")
+plt.ylabel("time")
+plt.show()
 
