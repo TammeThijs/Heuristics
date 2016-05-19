@@ -327,7 +327,7 @@ def simulated_annealing(runs):
     
     found_profit_per_run = []
     time_needed = []
-    water_or_house = 0.9
+    water_or_house = 1.0
     
     # place houses
     not_placed = True

@@ -12,11 +12,12 @@ import numpy as np
 
 
 
-'''
-Call functions to place houses
-'''
-def houses_to_place(houses, width, height):
-    # make a matrix for if pixel is taken.
+def houses_to_place(houses, width, height):   
+    '''
+    Create matrix, place water, place all houses one by one. 
+    First big then small. Try to place all houses 1000 times, 
+    if fails return error: ('error iteration').
+    '''
     matrix = [[0 for i in range(height)] for j in range(width)] 
     
     matrix, water = wc.place_water(matrix)    
@@ -44,14 +45,14 @@ def houses_to_place(houses, width, height):
         houseid += 1
     return matrix, houselist, water
 
-'''
-Place houses random on the matrix
-'''
 def random_placing(matrix, house, width, height, houseid, iteration = 0):
-    
+    '''
+    Place houses random on the matrix. Randomise a random position inside the 
+    matrix. 
+    '''
+    # Try to place 1000 times, if fails give error
     iteration += 1    
     if (iteration > 1000):
-        #print("More then ", iteration, " iteration. Try again")
         raise("error iteration")
     
     # get random position
@@ -65,14 +66,14 @@ def random_placing(matrix, house, width, height, houseid, iteration = 0):
     else:
         matrix, house = place_house(house, matrix, randx, randy)
     
+    # done return
     return matrix, house
 
-    
-'''
-Places a the house on matrix, width xpos and ypos the bottem
-left coordinates
-'''
 def place_house(house, matrix, xpos, ypos):
+    '''
+    Places a the house on matrix, width xpos and ypos the bottom
+    left coordinates
+    '''
     
     house.change_xpos(xpos)
     house.change_ypos(ypos)
@@ -85,20 +86,18 @@ def place_house(house, matrix, xpos, ypos):
                 matrix[x][y] = house.get_color()
     return matrix, house
    
-   
-'''
-Checks if the house can be placed on matrix. 
-With xpos and ypos the bottem left coordinates.
-
-returns true if house can be placed
-'''
 def placement_check(house, matrix, xpos, ypos, move = False, maison = True):
-
+    '''
+    Checks if the house can be placed on matrix. 
+    With xpos and ypos the bottem left coordinates.
+    
+    returns true if house can be placed
+    '''
+    
     width = len(matrix)
     heigth = len(matrix[0])
     
-    #Checking if inside grid       
-    
+    #Checking if inside grid
     # right
     if(xpos + house.get_width() + house.get_vrijstand() >= width):
         return False
@@ -112,9 +111,7 @@ def placement_check(house, matrix, xpos, ypos, move = False, maison = True):
     if( ypos - house.get_vrijstand() < 0):
         return False
     
-    #Validation done for all houses
-    
-    # Check if the house can be placed. 
+    # Check the boundry of the house
     # bottem left
     if(matrix[xpos][ypos] != 0):
         return False
@@ -125,8 +122,9 @@ def placement_check(house, matrix, xpos, ypos, move = False, maison = True):
     if(matrix[xpos+ house.get_width()][ypos + house.get_heigth()] != 0):
         return False
     
+    # if this is a move of a house and not a random placing
     if(move):
-        # check for vrijstand
+        # check for manditory vrijstand inside other house
         # bot left
         if(matrix[xpos - house.get_vrijstand()][ypos - house.get_vrijstand()] > 9):
             return False
@@ -140,6 +138,7 @@ def placement_check(house, matrix, xpos, ypos, move = False, maison = True):
         if(matrix[xpos + house.get_width() + house.get_vrijstand()][ypos + house.get_heigth() + house.get_vrijstand()] > 9):
             return False
 
+        # if it is a maison you will need extra checks since it is longer
         if(maison):
             # middle between
             # bot
@@ -181,8 +180,6 @@ def placement_check(house, matrix, xpos, ypos, move = False, maison = True):
             if(matrix[xpos - house.get_vrijstand()][ypos + int(house.get_heigth()/2)] > 9):
                 return False
             
-    
-        
-    # passed every test so far
+    # passed every test
     return True    
     
