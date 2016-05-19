@@ -6,10 +6,6 @@ Created on Thu Apr 28 13:15:31 2016
 """
 
 import pygame
-import move_house as mh
-import random
-import free_space as cv
-import profit as cp
 
 def get_colours():
     
@@ -77,7 +73,6 @@ def build_grid(matrix):
         caption = "Amstelhaege"
         pygame.display.set_caption(caption)
         pygame.display.flip()
-               
     
     pygame.display.quit()
     pygame.quit()

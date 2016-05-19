@@ -7,15 +7,12 @@ Created on Thu Apr 21 12:12:14 2016
 
 import movement
 import random
-import free_space
-import profit
 
-
-'''
-Moves a house to a new random position (within a range)
-with a random range from -dx,dx and -dy,dy in meters
-'''
 def move_house(matrix, house, dx, dy, max_atempts = 100):
+    '''
+    Moves a house to a new random position (within a range)
+    with a random range from -dx,dx and -dy,dy in meters
+    '''
     # transfer meters to rigth index namly0.5 meters per bukket
     dx *= 2
     dy *= 2    
@@ -32,6 +29,7 @@ def move_house(matrix, house, dx, dy, max_atempts = 100):
     # remove house, so we can move it
     new_matrix = remove_house(new_matrix, house)
     
+    # get house type
     if(house.get_house_type() == "maison"):
         house_maison = True
     else:
@@ -54,6 +52,11 @@ def move_house(matrix, house, dx, dy, max_atempts = 100):
     return False, matrix
 
 def move_bulk(matrix, houselist, dx, dy , bulk, max_attempts = 5000):
+    '''
+    Move multiple houses at once.
+    
+    TODO doest work yet
+    '''
     # transfer meters to rigth index namly0.5 meters per bukket
     dx *= 2
     dy *= 2  
@@ -87,6 +90,9 @@ def move_bulk(matrix, houselist, dx, dy , bulk, max_attempts = 5000):
     return True, new_matrix
         
 def try_to_place(matrix,new_matrix, house, max_attemps, dx, dy, house_maison):
+    '''
+    Method for bulk.
+    '''
     for i in range(max_attemps):
         # get pos new position
         xpos = house.get_xpos()
@@ -104,12 +110,12 @@ def try_to_place(matrix,new_matrix, house, max_attemps, dx, dy, house_maison):
     return False, matrix
 
    
-'''
-Remove the house
-Decrease manditory free space by 1
-'''
 def remove_house(matrix, house):
-    # TODO GET POS OF HOUSE
+    '''
+    Remove the house
+    Decrease manditory free space by 1
+    '''
+    # get house to remove
     xpos = house.get_xpos()
     ypos = house.get_ypos()
     
@@ -124,12 +130,14 @@ def remove_house(matrix, house):
     return matrix
     
 def move_water(matrix, water, dx, dy, max_atempts = 1000):
-    # transfer meters to rigth index namly0.5 meters per bukket
-    #print("move Water")
+    '''
+    This function will move water. It will try max_atempts times, default 1000
+    '''
+    
+    # transfer meters to rigth index namely0.5 meters per bukket
     dx *= 2
     dy *= 2    
-    #print("x" + str(water.get_xpos()))
-    #print("y" + str(water.get_ypos()))
+
     # make copy of matrix for when move is incorrect
     new_matrix = []
     for i in range(len(matrix)):
@@ -142,31 +150,30 @@ def move_water(matrix, water, dx, dy, max_atempts = 1000):
     # remove water, so we can move it
     new_matrix = remove_water(new_matrix, water)
 
-            
+    xpos = water.get_xpos()
+    ypos = water.get_ypos()
+
+    # Try to place water max_atemps times
     for i in range(max_atempts):
-        # get pos new position
-        xpos = water.get_xpos()
-        ypos = water.get_ypos()
         new_xpos = xpos + random.randint(-dx,dx)
         new_ypos = ypos + random.randint(-dy,dy)
         
         # check if you can move, if yes move, if no return old matrix
         if(water_placement_check(new_matrix, water, new_xpos, new_ypos)):
-            #print("water can be placed")
-            #print("house is moved")
             new_matrix = replace_water(new_matrix, water, new_xpos, new_ypos)
             return True, new_matrix
-#        else:
-#            #print("house could not be moved")
-#    print("water canNOT! be placed")
+            
+    # failed to move water max_atemps times            
     return False, matrix
     
 def remove_water(matrix, water):
-    # TODO GET POS OF HOUSE
+    '''
+    Remove water from matrix
+    '''
     xpos = water.get_xpos()
     ypos = water.get_ypos()
     
-    # remove house and take one from manditory free space            
+    # remove water          
     for x in range(xpos, xpos + water.get_width()):
         for y in range(ypos, ypos + water.get_heigth()):
             matrix[x][y] -= 5      
@@ -174,6 +181,9 @@ def remove_water(matrix, water):
     
     
 def water_placement_check(matrix, water, new_xpos, new_ypos):
+    '''
+    Check if water can be placed here.
+    '''
     width = water.get_width()
     heigth = water.get_heigth()
 
@@ -201,6 +211,10 @@ def water_placement_check(matrix, water, new_xpos, new_ypos):
     return True
                 
 def replace_water(matrix, water, new_xpos, new_ypos):
+    '''
+    Places water at the given position.
+    '''
+    
     water.set_xpos(new_xpos)
     water.set_ypos(new_ypos)
     
