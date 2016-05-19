@@ -5,6 +5,7 @@ Created on Tue May  3 15:12:11 2016
 @author: Stephan
 """
 import random
+import math
 
 class Water_pool():
     def __init__(self, width, heigth, xpos, ypos):
@@ -38,7 +39,7 @@ class Water_pool():
 
 class Water():
     def __init__(self):
-        self.max_pools = 4
+        self.max_pools = random.randint(1,4)
         self.ratio = 4
         self.area_needed = 4800
         self.area_filled = 0
@@ -46,20 +47,25 @@ class Water():
         
     def get_pools(self):
         return self.pools
-        
+    def get_max_pools(self):
+        return self.max_pools        
     def get_pool(self, index):
         if(index - 1 > 4):
             raise 'This pool does not exist'
-        return self.pools[index]
-        
+        return self.pools[index]        
     def new_pool(self, newpool):
         if(len(self.pools) >= 4):
             raise 'could not add another pool'
-        self.pools.append(newpool)
-    
+        self.pools.append(newpool)    
     def delete_pool(self, index):
         self.pools.pop(index)
-        
+    def get_filled(self):
+        return self.area_filled
+    def get_needed(self):
+        return self.area_needed 
+    def set_filled(self, filled):
+        self.area_needed = self.area_needed - filled
+        self.area_filled = self.area_filled + filled
     def copy(self):
         new_water = Water()
         for pool in self.pools:
@@ -74,26 +80,42 @@ place water by finding the larges free space and place it there.
 '''        
 def place_water(matrix):
     water = Water()
-    for i in range(4):
+    count = water.get_max_pools()
+    
+    for i in range(count):
+        
+        
+        if(i > 1):
+            max_width = math.floor(math.sqrt(water.get_needed())) 
+            width = random.randint(1, max_width)
+            heigth = math.ceil(width/(random.randint(1,4)))
+            surface = width*heigth
+        else:
+            width = math.ceil(math.sqrt(water.get_needed()))
+            heigth = width
+            surface = water.get_needed()
+            
+        water.set_filled(surface)                
+                
         search = True
         while(search):
             search = False
-            xstart = random.randint(0, len(matrix) - 71)
-            ystart = random.randint(0, len(matrix[0]) - 71)
+            xstart = random.randint(0, len(matrix) - (width+1))
+            ystart = random.randint(0, len(matrix[0]) - (heigth+1))
             
             if(matrix[xstart][ystart] != 0):
                 search = True
-            if(matrix[xstart][ystart + 70] != 0):
+            if(matrix[xstart][ystart + heigth] != 0):
                 search = True
-            if(matrix[xstart + 70][ystart] != 0):
+            if(matrix[xstart + width][ystart] != 0):
                 search = True
-            if(matrix[xstart + 70][ystart + 70] != 0):
+            if(matrix[xstart + width][ystart + heigth] != 0):
                 search = True
         
-        water_pool = Water_pool(70, 70, xstart, ystart)
+        water_pool = Water_pool(width, width, xstart, ystart)
         # place water        
-        for x in range(70):
-            for y in range(70):
+        for x in range(width):
+            for y in range(heigth):
                 matrix[x+xstart][y+ystart] = 5
         water.new_pool(water_pool)        
     return matrix, water
