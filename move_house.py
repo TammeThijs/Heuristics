@@ -207,24 +207,24 @@ def water_placement_check(matrix, water, new_xpos, new_ypos):
 
     y = new_ypos
     for x in range(new_xpos, new_xpos + width,14):
-        if(matrix[x][y] > 9):           
+        if(matrix[x][y] > 4):           
             return False
     y = new_ypos + heigth
     for x in range(new_xpos, new_xpos + width, 14):
-        if(matrix[x][y] > 9):           
+        if(matrix[x][y] > 4):           
             return False        
     x = new_xpos       
     for y in range(new_ypos, new_ypos + heigth, 14):
-        if(matrix[x][y] > 9):           
+        if(matrix[x][y] > 4):           
             return False      
     x = new_xpos + width      
     for y in range(new_ypos, new_ypos + heigth, 14):
-        if(matrix[x][y] > 9):           
+        if(matrix[x][y] > 4):           
             return False             
             
     for x in range(new_xpos, new_xpos + width,14):
         for y in range(new_ypos, new_ypos + heigth, 14):   
-            if(matrix[x][y] > 9):           
+            if(matrix[x][y] > 4):           
                 return False 
     
     

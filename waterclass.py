@@ -169,7 +169,55 @@ def place_water_rectangle(matrix):
         water.new_pool(water_pool)        
     return matrix, water
 
-
+def place_water_rectangle_random(matrix):
+    water = Water()
+    chance = 0.5
+        
+    for i in range(4):
+        if(chance > random.random()):
+            water_width = 40
+            water_heigth = 150
+        else:
+            water_width = 150
+            water_heigth = 40
+        
+        matrix, xstart, ystart = get_coords_rectangle_random(matrix, water_width, water_heigth)
+        
+        water_pool = Water_pool(water_width, water_heigth, xstart, ystart)
+       
+        # place water        
+        for x in range(water_width):
+            for y in range(water_heigth):
+                matrix[x+xstart][y+ystart] = 5
+        water.new_pool(water_pool)        
+    return matrix, water
+    
+def get_coords_rectangle_random(matrix, water_width, water_heigth, count = 0):
+    print("placing water....   " + str(count))
+    count += 1
+    if(count > 10**3):
+        raise("water placement error")
+        
+    xstart = random.randint(0, len(matrix) - water_width - 1)
+    ystart = random.randint(0, len(matrix[0]) - water_heigth - 1)
+    
+    # edges
+    if(matrix[xstart][ystart] != 0):
+        return get_coords_rectangle_random(matrix, water_width, water_heigth, count = count)
+    if(matrix[xstart][ystart + water_heigth] != 0):
+        return get_coords_rectangle_random(matrix, water_width, water_heigth, count = count)
+    if(matrix[xstart + water_width][ystart] != 0):
+        return get_coords_rectangle_random(matrix, water_width, water_heigth, count = count)
+    if(matrix[xstart + water_width][ystart + water_heigth] != 0):
+        return get_coords_rectangle_random(matrix, water_width, water_heigth, count = count)
+        
+    # whole
+    for x in range(xstart, xstart + water_width):
+        for y in range(ystart, ystart + water_heigth):
+            if(matrix[x][y] != 0):
+                return get_coords_rectangle_random(matrix, water_width, water_heigth, count = count)
+                
+    return matrix, xstart, ystart
 '''
 place water by finding the larges free space and place it there.
 '''        

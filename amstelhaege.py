@@ -76,8 +76,6 @@ def showGaussian(houses, scope, desiredResult):
     return plt.hist(savedResults, bins = 100)
 
 
-#main()
-
 def run_with_pygame():
     '''
     First build a grid and then show every step with pygame.
@@ -108,13 +106,13 @@ def run_with_pygame():
     state = ss.Saved_State(result, houselist, water)
     
     display_debug.build_grid(state, matrix)
-#run_with_pygame()    
 
-def hill_climber(runs, houses):
+def hill_climber_random_sampling(runs, houses):
     '''
     Run with hill climber
     Finds max profit
     '''
+    print("Starting hill climber max value")
     # imports
     import move_house as mh
     import random
@@ -199,13 +197,107 @@ def hill_climber(runs, houses):
     
     
     end_run = time.time()  
-    plt.figure()         
-    plt.imshow(first_matrix) 
-    plt.figure()
-    plt.imshow(matrix)
-    dse.build_grid(matrix)
+#    plt.figure()         
+#    plt.imshow(first_matrix) 
+#    plt.figure()
+#    plt.imshow(matrix)
+    #dse.build_grid(matrix)
+    
+    def hill_climber(runs, houses):
+    '''
+    Run with hill climber
+    Finds max profit
+    '''
+    print("Starting hill climber max value")
+    # imports
+    import move_house as mh
+    import random
+    import profit as cp
+    import display_show_end as dse
+    import time
     
     
+    global INFO
+    INFO = "Hill climber. "
+    
+    # save last to show with pygame
+    global matrix
+    global state
+    global water_or_house
+    global found_profit_per_run
+    global time_needed
+    global start_run
+    global end_run
+    
+    found_profit_per_run = []
+    time_needed = []
+    water_or_house = 0.9
+    
+    # place houses
+    not_placed = True
+    
+    # start placing
+    while(not_placed):
+        try:
+            matrix, houselist, water = movement.houses_to_place(houses, WIDTH, HEIGTH)
+            not_placed = False
+        except:
+            not_placed = True
+    
+    global first_matrix
+    
+    first_matrix = np.copy(matrix)
+
+    # calculate initial profit
+    free_space.calculate_new_vrijstand_to_class(matrix, houselist)
+    result = profit.calculate(houselist)
+    
+    found_profit_per_run.append(result)
+            
+    # save findings
+    state = ss.Saved_State(result, houselist, water)
+    
+    # do the hillclimber
+    start_run = time.time()
+    for i in range(runs):
+        if( i % (runs / 100) == 0):
+            print(i)
+        # make a copy of houselist              
+        houselist = state.get_houselist()
+        water = state.get_water()
+        
+        if(water_or_house > random.random()):
+            house = random.randint(0, len(houselist) - 1)
+            moved, new_matrix = mh.move_house(matrix, houselist[house], 100, 100)
+        else:
+            water_pool = random.randint(0, len(water.get_pools()) - 1)
+            moved, new_matrix = mh.move_water(matrix, water.get_pool(water_pool), 10, 10)
+          
+        
+        if(moved):
+            free_space.calculate_new_vrijstand_to_class(new_matrix, houselist)
+            new_profit = cp.calculate(houselist)
+            if(new_profit >= state.get_total_value()):
+                state.set_houselist(houselist)
+                state.set_total_value(new_profit)
+                state.set_water(water)
+                matrix =  new_matrix
+            found_profit_per_run.append(state.get_total_value())
+            time_needed.append(time.time() - start_run)
+        else:
+            # a step is a succeseeded move if no move try again
+            i -= 1
+               
+    global final_profit
+    final_profit = state.get_total_value()
+    
+    
+    end_run = time.time()  
+#    plt.figure()         
+#    plt.imshow(first_matrix) 
+#    plt.figure()
+#    plt.imshow(matrix)
+    #dse.build_grid(matrix)
     
 def hill_climber_vrijstand(runs):
     '''
@@ -305,7 +397,6 @@ def hill_climber_vrijstand(runs):
     plt.imshow(matrix)
     dse.build_grid(matrix)
     
-hill_climber(20000, 1)
 #%%
 def simulated_annealing():
     '''
@@ -430,27 +521,41 @@ endrun_storage = []
 startrun_storage = []
 time_storage = []
 profitpercycle_storage = []
-for i in range(100):
-    simulated_annealing()
+for i in range(10):
+    hill_climber(10000, 3)
     storage.append(final_profit)
     matrix_storage.append(matrix)
     endrun_storage.append(end_run)
     startrun_storage.append(start_run)
     time_storage.append(end_run - start_run)
     profitpercycle_storage.append(found_profit_per_run)
+    
+
+#hill_climber(100, 1)  
 #%%
+test = [profitpercycle_storage[i][-1] for i in range(len(profitpercycle_storage))]
+plt.plot(test)
+
+#%%
+#plt.figure()
+#plt.plot(found_profit_per_run)
+#plt.title("vrijstand per run. Max: " + str(found_profit_per_run[-1]))
+#plt.xlabel("runs")
+#plt.ylabel("profit")
+#plt.show()
+#
+#plt.figure()
+#plt.plot(time_needed)
+#plt.title("Time needed: " + str(end_run - start_run))
+#plt.xlabel("runs")
+#plt.ylabel("time")
+#plt.show()
+
+#%%
+run = 2
+plt.figure()
+plt.imshow(matrix_storage[run])
+plt.title(profitpercycle_storage[run][-1])
 
 plt.figure()
-plt.plot(found_profit_per_run)
-plt.title("vrijstand per run. Max: " + str(found_profit_per_run[-1]))
-plt.xlabel("runs")
-plt.ylabel("profit")
-plt.show()
-
-plt.figure()
-plt.plot(time_needed)
-plt.title("Time needed: " + str(end_run - start_run))
-plt.xlabel("runs")
-plt.ylabel("time")
-plt.show()
-
+plt.plot(profitpercycle_storage[run])
