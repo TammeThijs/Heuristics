@@ -1,14 +1,21 @@
 
 # -*- coding: utf-8 -*-
 """
-Created on Thu Apr 28 13:15:31 2016
-@author: Stijn
+Heuristieken: AmstelHaege
+Name: display_show_end.py
+Autors: Stephan Kok, Stijn Buiteman and Thamme Thijs.
+Last modified: 27-05-2016
+
+Show matrix using pygame
 """
 
+#import libary
 import pygame
 
 def get_colours():
-    
+    """
+    Setting colours to all id's on the map.
+    """
     # set colours for map
     White = (255, 255, 255) # Mandatory free space 1 
     Overlap1 = (255, 255, 204) # Mandatory free space shared by 2 houses 2
@@ -43,8 +50,9 @@ def get_colours():
     return colours    
 
 def init_pygame(width, heigth):  
-    
-    # initialize pygame display
+    """
+    initialize pygame display
+    """
     pygame.init()
     screen = pygame.display.set_mode((width, heigth))
     pygame.display.set_caption("Amstelhaege")
@@ -52,7 +60,9 @@ def init_pygame(width, heigth):
     return screen
     
 def build_grid(matrix):
-    
+    """
+    Show the matrix.
+    """
     colours = get_colours()    
     screen = init_pygame(640, 600)
     tilesize = 2 # width and height    

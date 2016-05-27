@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu Apr 21 12:55:38 2016
+Heuristieken: AmstelHaege
+Name: free_space.py
+Autors: Stephan Kok, Stijn Buiteman and Thamme Thijs.
+Last modified: 27-05-2016
 
-@author: Stephan
+calculate the free space of houses on the matrix.
 """
-
 
 def calculate_new_vrijstand_to_class(matrix, house_list):  
     '''
@@ -16,9 +18,6 @@ def calculate_new_vrijstand_to_class(matrix, house_list):
         
         # Delete extra half meter
         house.change_extra_vrijstand(int(meters / 2))
-        
-    # return the list
-    return house_list
     
  
 def find_vrijstand(matrix, house, steps = 14, back = False, prev = 0, taken = None, free = 0):

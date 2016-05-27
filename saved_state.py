@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-Created on Tue May  3 14:31:10 2016
+Heuristieken: AmstelHaege
+Name: saved_state.py
+Autors: Stephan Kok, Stijn Buiteman and Thamme Thijs.
+Last modified: 27-05-2016
 
-@author: Stijn
+contains saved state to keep track of the best state
 """
 
-class Saved_State():
+class saved_state():
     '''
     Used to save the the best state of the matrix.
     '''
@@ -17,17 +20,22 @@ class Saved_State():
         
     def get_total_value(self):
         return self.total_value
-    def get_houselist(self):
+
+    def set_total_value(self, profit):
+        self.total_value = profit
+        
+    def set_houselist(self, houselist):
+        self.houselist = houselist
+        
+    def set_water(self, water):
+        self.water = water
+        
+    def get_houselist_copy(self):
         new_list=[]
         for house in self.houselist:
             new_list.append(house.copy())
         return new_list
-    def get_water(self):
+        
+    def get_water_copy(self):
         return self.water.copy()
-    
-    def set_total_value(self, profit):
-        self.total_value = profit
-    def set_houselist(self, houselist):
-        self.houselist = houselist
-    def set_water(self, water):
-        self.water = water
+            
