@@ -22,7 +22,7 @@ import move_objects as move
 # make recursion bigger
 sys.setrecursionlimit(10**6)
 
-#grid variables
+#grid variables in 0.5 meter
 WIDTH = 300 
 HEIGTH = 320   
 

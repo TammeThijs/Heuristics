@@ -11,6 +11,8 @@ house class
 class House():
     '''
     The main house class.
+    
+    Contains the functions that all houses need.
     '''
     
     def __init__(self):
@@ -73,21 +75,25 @@ class House():
 class Eengezinswoning(House):
     '''
     Child of House class.
+    
+    Has all property's of Eengezinswoning
     '''
     
     def __init__(self):
         super(self.__class__, self).__init__()
-        # house dimensions in 0.5 meters  
         self.house_type = "eengezinswoning"   
         self.width = 16
         self.heigth = 16
         self.vrijstand = 4
         self.cost = 285000
-        self.gain = 0.03 # profit margin/m free space
-        self.value = 285000 # startwaarde
+        self.gain = 0.03
+        self.value = 285000 
         self.housecolor = 20
 
     def copy(self):
+        """
+        Return a copy of hisself
+        """
         new = Eengezinswoning()
         new.change_extra_vrijstand(self.extra_vrijstand)
         new.change_xpos(self.posx)
@@ -98,6 +104,8 @@ class Eengezinswoning(House):
 class Bungalow(House):
     '''
     Child of House class.
+    
+    Has all property's of Bungalow
     '''    
     def __init__(self):
         super(self.__class__, self).__init__()
@@ -115,6 +123,9 @@ class Bungalow(House):
         self.housecolor = 15
     
     def copy(self):
+        """
+        Return a copy of hisself
+        """
         new = Bungalow()
         new.change_extra_vrijstand(self.extra_vrijstand)
         new.change_xpos(self.posx)
@@ -124,6 +135,8 @@ class Bungalow(House):
 class Maison(House):
     '''
     Child of House class.
+    
+     Has all property's of Maison
     '''    
     def __init__(self):
         super(self.__class__, self).__init__()
@@ -133,11 +146,14 @@ class Maison(House):
         self.heigth = 21
         self.vrijstand = 12
         self.cost = 610000
-        self.gain = 0.06 # profit margin/m free space
+        self.gain = 0.06
         self.value = 610000
         self.housecolor = 10
    
     def copy(self):
+        """
+        Return a copy of hisself
+        """
         new = Maison()
         new.change_extra_vrijstand(self.extra_vrijstand)
         new.change_xpos(self.posx)

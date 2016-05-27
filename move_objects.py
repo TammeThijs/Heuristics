@@ -8,6 +8,7 @@ Last modified: 27-05-2016
 move a house or water
 """
 
+# import libary
 import housecheck as hcheck
 import random
 

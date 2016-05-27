@@ -8,6 +8,7 @@ Last modified: 27-05-2016
 Initialize the matrix
 """
 
+# import libary
 import random
 import houseclass as hc
 import waterclass as wc
