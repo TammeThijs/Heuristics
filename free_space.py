@@ -2,7 +2,7 @@
 """
 Heuristieken: AmstelHaege
 Name: free_space.py
-Autors: Stephan Kok, Stijn Buiteman and Thamme Thijs.
+Autors: Stephan Kok, Stijn Buiteman and Tamme Thijs.
 Last modified: 27-05-2016
 
 calculate the free space of houses on the matrix.

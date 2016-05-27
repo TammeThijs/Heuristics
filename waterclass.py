@@ -1,7 +1,7 @@
 """
 Heuristieken: AmstelHaege
 Name: waterclass.py
-Autors: Stephan Kok, Stijn Buiteman and Thamme Thijs.
+Autors: Stephan Kok, Stijn Buiteman and Tamme Thijs.
 Last modified: 27-05-2016
 
 contains water class

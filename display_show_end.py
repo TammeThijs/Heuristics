@@ -3,7 +3,7 @@
 """
 Heuristieken: AmstelHaege
 Name: display_show_end.py
-Autors: Stephan Kok, Stijn Buiteman and Thamme Thijs.
+Autors: Stephan Kok, Stijn Buiteman and Tamme Thijs.
 Last modified: 27-05-2016
 
 Show matrix using pygame

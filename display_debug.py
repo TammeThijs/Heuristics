@@ -3,7 +3,7 @@
 """
 Heuristieken: AmstelHaege
 Name: display_debug.py
-Autors: Stephan Kok, Stijn Buiteman and Thamme Thijs.
+Autors: Stephan Kok, Stijn Buiteman and Tamme Thijs.
 Last modified: 27-05-2016
 
 For debugging purpose

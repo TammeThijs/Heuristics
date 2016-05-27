@@ -2,7 +2,7 @@
 """
 Heuristieken: AmstelHaege
 Name: saved_state.py
-Autors: Stephan Kok, Stijn Buiteman and Thamme Thijs.
+Autors: Stephan Kok, Stijn Buiteman and Tamme Thijs.
 Last modified: 27-05-2016
 
 contains saved state to keep track of the best state

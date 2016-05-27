@@ -2,7 +2,7 @@
 """
 Heuristieken: AmstelHaege
 Name: profit.py
-Autors: Stephan Kok, Stijn Buiteman and Thamme Thijs.
+Autors: Stephan Kok, Stijn Buiteman and Tamme Thijs.
 Last modified: 27-05-2016
 
 calculate the current profit or current free space
